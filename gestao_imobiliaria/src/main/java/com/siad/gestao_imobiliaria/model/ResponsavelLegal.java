@@ -21,6 +21,7 @@ public class ResponsavelLegal {
     @Id
     @GeneratedValue
     private UUID id;
+    private Integer codigo;
     private String nome;
     private String telefoneFixo;
     private String telefoneCelular;

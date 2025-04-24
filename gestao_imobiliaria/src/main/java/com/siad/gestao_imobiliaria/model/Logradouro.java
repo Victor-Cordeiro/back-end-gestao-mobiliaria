@@ -20,6 +20,7 @@ public class Logradouro {
 
     @Id
     private UUID id;
+    private Integer codigo;
     private String nome;
     private String nome_anterior;
     @ManyToOne

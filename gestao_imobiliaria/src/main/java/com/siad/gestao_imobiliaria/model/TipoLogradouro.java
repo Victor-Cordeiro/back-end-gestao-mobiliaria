@@ -23,6 +23,7 @@ public class TipoLogradouro {
     @Id
     @GeneratedValue
     private UUID id;
+    private Integer codigo;
     private String descricao;
     private Boolean ativo;
     private Date createAt;

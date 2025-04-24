@@ -20,6 +20,7 @@ public class BoletimCadastroImovel {
     @Id
     @GeneratedValue
     private UUID id;
+    private Integer codigo;
     private String matricula;
 
     @ManyToOne

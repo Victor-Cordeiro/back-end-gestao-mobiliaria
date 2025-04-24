@@ -20,6 +20,7 @@ public class Endereco {
 
     @Id
     private UUID id;
+    private Integer codigo;
     @ManyToOne
     @JoinColumn(name = "logradouro_id") // Essa é a FK para a tabela Logradouro
     private Logradouro logradouro;
