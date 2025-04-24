@@ -1,8 +1,9 @@
 package com.siad.gestao_imobiliaria.model;
 
+import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,22 +14,24 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Logradouro {
-
+@Entity
+public class ResponsavelLegal {
 
     @Id
+    @GeneratedValue
     private UUID id;
     private String nome;
-    private String nome_anterior;
-    @ManyToOne
-    private TipoLogradouro tipoLogradouro;
+    private String telefoneFixo;
+    private String telefoneCelular;
+    private String email;
+    private String numeroDocumento;
+    private TipoResponsavel tipoResponsavel;
+    private Endereco enderecoResponsavel;
     private Boolean ativo;
     private Date createAt;
     private Date updateAt;
-
 
 
 }
