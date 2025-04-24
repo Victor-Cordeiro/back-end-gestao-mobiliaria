@@ -2,6 +2,7 @@ package com.siad.gestao_imobiliaria.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +23,10 @@ public class Endereco {
     @Id
     private UUID id;
     @ManyToOne
-    private Logradouro lagradouro;
+    @JoinColumn(name = "logradouro_id") // Essa é a FK para a tabela Logradouro
+    private Logradouro logradouro;
     @ManyToOne
+    @JoinColumn(name = "bairro_id") // Essa é a FK para a tabela Logradouro
     private Bairro bairro;
     private String numero;
     private String complemento;
