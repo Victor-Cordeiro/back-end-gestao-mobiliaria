@@ -1,9 +1,7 @@
 package com.siad.gestao_imobiliaria.model;
 
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "responsavel_legal")
 public class ResponsavelLegal {
 
     @Id
@@ -27,7 +26,12 @@ public class ResponsavelLegal {
     private String telefoneCelular;
     private String email;
     private String numeroDocumento;
+
+    @Enumerated(EnumType.STRING)
     private TipoResponsavel tipoResponsavel;
+
+    @OneToOne
+    @JoinColumn(name = "endereco_responsavel_id")
     private Endereco enderecoResponsavel;
     private Boolean ativo;
     private Date createAt;

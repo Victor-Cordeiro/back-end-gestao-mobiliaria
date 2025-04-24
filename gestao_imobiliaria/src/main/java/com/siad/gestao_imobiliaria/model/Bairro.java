@@ -15,13 +15,16 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "bairro")
 public class Bairro {
     @Id
     @GeneratedValue
     private UUID id;
+
     private Integer codigo;
     private String nome;
     @ManyToOne
+    @JoinColumn(name = "cidade_id") // Essa é a FK para a tabela Cidade
     private Cidade cidade;
     private Boolean ativo;
     private Date createAt;
