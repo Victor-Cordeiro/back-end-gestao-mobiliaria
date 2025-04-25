@@ -15,6 +15,7 @@ public class BairroService {
 
     private final BairroRepository bairroRepository;
 
+
     public Bairro buscarOuCriar(String nome, Cidade cidade) {
         return bairroRepository.findByNomeAndCidade(nome, cidade)
                 .orElseGet(() -> {
@@ -22,6 +23,7 @@ public class BairroService {
                     novo.setNome(nome);
                     novo.setCidade(cidade);
                     return bairroRepository.save(novo);
+
                 });
     }
 

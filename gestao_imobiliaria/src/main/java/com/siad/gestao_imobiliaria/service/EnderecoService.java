@@ -1,7 +1,9 @@
 package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.model.Endereco;
+import com.siad.gestao_imobiliaria.repository.BairroRepository;
 import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
+import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,16 @@ public class EnderecoService {
     private final EnderecoRepository enderecoRepository;
 
 
+    private final LogradouroRepository logradouroRepository;
+    private final BairroRepository bairroRepository;
 
-    public Endereco salvar(Endereco endereco) {
-
+    public Endereco createEndereco(String numero, String complemento, String cep, UUID logradouroId, UUID bairroId) {
+        Endereco endereco = new Endereco();
+        endereco.setNumero(numero);
+        endereco.setComplemento(complemento);
+        endereco.setCep(cep);
+        endereco.setLogradouro(logradouroRepository.findById(logradouroId).orElse(null));
+        endereco.setBairro(bairroRepository.findById(bairroId).orElse(null));
         return enderecoRepository.save(endereco);
     }
 
