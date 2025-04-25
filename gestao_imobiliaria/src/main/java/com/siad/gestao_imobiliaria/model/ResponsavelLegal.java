@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -31,12 +32,12 @@ public class ResponsavelLegal {
     @Enumerated(EnumType.STRING)
     private TipoResponsavel tipoResponsavel;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "endereco_responsavel_id")
     private Endereco enderecoResponsavel;
     private Boolean ativo;
-    private Date createAt;
-    private Date updateAt;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
 
 
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -27,8 +28,9 @@ public class Bairro {
     @JoinColumn(name = "cidade_id") // Essa é a FK para a tabela Cidade
     private Cidade cidade;
     private Boolean ativo;
-    private Date createAt;
-    private Date updateAt;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+
 
 
 }

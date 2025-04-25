@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -27,8 +28,9 @@ public class Logradouro {
     @JoinColumn(name= "tipo_logradouro_id") // Essa é a FK para a tabela TipoLogradouro
     private TipoLogradouro tipoLogradouro;
     private Boolean ativo;
-    private Date createAt;
-    private Date updateAt;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+
 
 
 
