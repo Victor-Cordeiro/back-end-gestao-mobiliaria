@@ -45,6 +45,18 @@ public class LogradouroService {
     }
 
 
+    public Logradouro atualizar(UUID id, Logradouro novo) {
+        Logradouro atual = logradouroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+
+        atual.setNome_anterior(atual.getNome());
+        atual.setNome(novo.getNome());
+        atual.setTipoLogradouro(novo.getTipoLogradouro());
+
+        return logradouroRepository.save(atual);
+    }
+
+
 
 
 }
