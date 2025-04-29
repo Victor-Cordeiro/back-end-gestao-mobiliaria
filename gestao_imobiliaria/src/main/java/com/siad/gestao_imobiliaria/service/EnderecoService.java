@@ -1,6 +1,8 @@
 package com.siad.gestao_imobiliaria.service;
 
+import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Endereco;
+import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.repository.BairroRepository;
 import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
@@ -15,20 +17,23 @@ import java.util.UUID;
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
-
-
     private final LogradouroRepository logradouroRepository;
     private final BairroRepository bairroRepository;
 
     public Endereco createEndereco(String numero, String complemento, String cep, UUID logradouroId, UUID bairroId) {
+        Logradouro logradouro = logradouroRepository.findById(logradouroId).orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+        Bairro bairro = bairroRepository.findById(bairroId).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+
         Endereco endereco = new Endereco();
         endereco.setNumero(numero);
         endereco.setComplemento(complemento);
         endereco.setCep(cep);
-        endereco.setLogradouro(logradouroRepository.findById(logradouroId).orElse(null));
-        endereco.setBairro(bairroRepository.findById(bairroId).orElse(null));
+        endereco.setLogradouro(logradouro);
+        endereco.setBairro(bairro);
+
         return enderecoRepository.save(endereco);
     }
+
 
 
     public Endereco atualizar(UUID id, Endereco novo) {
@@ -50,19 +55,21 @@ public class EnderecoService {
                 .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
     }
     public Endereco buscarPorCep(String cep) {
-        return enderecoRepository.findAll().stream()
-                .filter(endereco -> endereco.getCep().equals(cep))
-                .findFirst()
+        return enderecoRepository.findByCep(cep)
                 .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
     }
 
 
+
+
     public void deletar(UUID id) {
+
         enderecoRepository.deleteById(id);
     }
 
 
     public List<Endereco> listarTodos() {
+
         return enderecoRepository.findAll();
     }
 

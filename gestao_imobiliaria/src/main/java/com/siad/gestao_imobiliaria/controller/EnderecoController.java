@@ -17,39 +17,6 @@ public class EnderecoController {
 
 
 
-        private final EnderecoService enderecoService;
-
-        @PostMapping
-        public ResponseEntity<Endereco> salvar(@RequestBody Endereco endereco) {
-            return ResponseEntity.ok(enderecoService.salvar(endereco));
-        }
-
-        @PutMapping("/{id}")
-        public ResponseEntity<Endereco> atualizar(@PathVariable UUID id,
-                                                  @RequestBody Endereco endereco) {
-            return ResponseEntity.ok(enderecoService.atualizar(id, endereco));
-        }
-
-        @GetMapping("/{id}")
-        public ResponseEntity<Endereco> buscarPorId(@PathVariable UUID id) {
-            return ResponseEntity.ok(enderecoService.buscarPorId(id));
-        }
-
-        @GetMapping("/cep/{cep}")
-        public ResponseEntity<Endereco> buscarPorCep(@PathVariable String cep) {
-            return ResponseEntity.ok(enderecoService.buscarPorCep(cep));
-        }
-
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deletar(@PathVariable UUID id) {
-            enderecoService.deletar(id);
-            return ResponseEntity.noContent().build();
-        }
-
-        @GetMapping
-        public ResponseEntity<List<Endereco>> listarTodos() {
-            return ResponseEntity.ok(enderecoService.listarTodos());
-        }
 }
 
 

@@ -16,6 +16,10 @@ public class BairroService {
     private final BairroRepository bairroRepository;
 
 
+    public Bairro addBairro(Bairro bairro) {
+        return bairroRepository.save(bairro);
+    }
+
     public Bairro buscarOuCriar(String nome, Cidade cidade) {
         return bairroRepository.findByNomeAndCidade(nome, cidade)
                 .orElseGet(() -> {
@@ -27,11 +31,18 @@ public class BairroService {
                 });
     }
 
+    public Bairro buscarPorNome(String nome, Cidade cidade) {
+        return bairroRepository.findByNomeAndCidade(nome, cidade)
+                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+    }
+
 
 
     public Bairro getBairroById(UUID id) {
-        return bairroRepository.findById(id).orElse(null);
+        return bairroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
     }
+
 
 
 
