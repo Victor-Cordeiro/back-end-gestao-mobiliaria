@@ -35,4 +35,28 @@ public class Endereco {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
+
+
+
+
+    @PrePersist
+    public void prePersist() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
+
+
+
+
+
+
+
+
+
 }

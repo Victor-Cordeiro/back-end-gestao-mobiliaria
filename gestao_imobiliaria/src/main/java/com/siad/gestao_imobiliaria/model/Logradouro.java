@@ -35,10 +35,13 @@ public class Logradouro {
 
 
 
+
+
     @PrePersist
     public void prePersist() {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
+        this.ativo = true;
     }
 
     @PreUpdate

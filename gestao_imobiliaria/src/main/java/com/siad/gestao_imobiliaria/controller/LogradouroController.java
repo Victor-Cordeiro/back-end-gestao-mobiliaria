@@ -3,6 +3,7 @@ package com.siad.gestao_imobiliaria.controller;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.TipoLogradouro;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
+import com.siad.gestao_imobiliaria.repository.TipoLogradouroRepository;
 import com.siad.gestao_imobiliaria.service.LogradouroService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,6 +21,8 @@ public class LogradouroController {
 
     private final LogradouroService logradouroService;
     private final LogradouroRepository logradouroRepository;
+    private final TipoLogradouroRepository tipoLogradouroRepository;
+
 
 
 
@@ -35,6 +39,8 @@ public class LogradouroController {
 
     @PostMapping("/criar")
     public ResponseEntity<Logradouro> salvar(@RequestBody Logradouro logradouro) {
+
+
         Logradouro salvo = logradouroRepository.save(logradouro);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
@@ -43,5 +49,7 @@ public class LogradouroController {
     public ResponseEntity<String> teste() {
         return ResponseEntity.ok("POST recebido com sucesso!");
     }
+
+
 
 }
