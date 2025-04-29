@@ -20,17 +20,31 @@ public class Logradouro {
 
 
     @Id
+    @GeneratedValue
     private UUID id;
     private Integer codigo;
     private String nome;
     private String nome_anterior;
     @ManyToOne
     @JoinColumn(name= "tipo_logradouro_id") // Essa é a FK para a tabela TipoLogradouro
-    private TipoLogradouro tipoLogradouro;
+    private TipoLogradouro tipo;
     private Boolean ativo;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
+
+
+
+    @PrePersist
+    public void prePersist() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
 
 

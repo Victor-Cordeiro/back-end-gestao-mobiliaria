@@ -7,7 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TipoLogradouroRepository extends JpaRepository<TipoLogradouro, UUID> {
+    Optional<Object> findByDescricaoIgnoreCase(String tipoFormatado);
     // Custom query methods can be defined here if needed
 
-    Optional<TipoLogradouro> findByNome(String nome);
+
 }

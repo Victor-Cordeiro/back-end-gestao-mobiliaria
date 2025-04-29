@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface LogradouroRepository extends JpaRepository<Logradouro, UUID> {
-    Optional<Logradouro> findByNomeAndTipo(String nome, TipoLogradouro tipo);
-    // Custom query methods can be defined here if needed
+
+
 }

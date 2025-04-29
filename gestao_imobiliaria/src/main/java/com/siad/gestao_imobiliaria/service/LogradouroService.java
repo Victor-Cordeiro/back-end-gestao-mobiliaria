@@ -16,15 +16,15 @@ public class LogradouroService {
 
     private final LogradouroRepository logradouroRepository;
 
-    public Logradouro buscarOuCriar(String nome, TipoLogradouro tipo) {
-        return logradouroRepository.findByNomeAndTipo(nome, tipo)
-                .orElseGet(() -> {
-                    Logradouro novo = new Logradouro();
-                    novo.setNome(nome);
-                    novo.setTipoLogradouro(tipo);
-                    return logradouroRepository.save(novo);
-                });
-    }
+//    public Logradouro buscarOuCriar(String nome, TipoLogradouro tipo) {
+//        return logradouroRepository.findByNomeAndTipo(nome, tipo)
+//                .orElseGet(() -> {
+//                    Logradouro novo = new Logradouro();
+//                    novo.setNome(nome);
+//                    novo.setTipo(tipo);
+//                    return logradouroRepository.save(novo);
+//                });
+//    }
 
     public Logradouro buscarPorId(UUID id) {
         return logradouroRepository.findById(id)
@@ -32,15 +32,15 @@ public class LogradouroService {
     }
 
 
-    public Logradouro buscarPorNome(String nome, TipoLogradouro tipo) {
-        return logradouroRepository.findByNomeAndTipo(nome, tipo)
-                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
-    }
+//    public Logradouro buscarPorNome(String nome, TipoLogradouro tipo) {
+//        return logradouroRepository.findByNomeAndTipo(nome, tipo)
+//                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+//    }
 
     public Logradouro createLogradouro(String nome, TipoLogradouro tipoLogradouro) {
         Logradouro logradouro = new Logradouro();
         logradouro.setNome(nome);
-        logradouro.setTipoLogradouro(tipoLogradouro);
+        logradouro.setTipo(tipoLogradouro);
         return logradouroRepository.save(logradouro);
     }
 
@@ -51,10 +51,11 @@ public class LogradouroService {
 
         atual.setNome_anterior(atual.getNome());
         atual.setNome(novo.getNome());
-        atual.setTipoLogradouro(novo.getTipoLogradouro());
+        atual.setTipo(novo.getTipo());
 
         return logradouroRepository.save(atual);
     }
+
 
 
 
