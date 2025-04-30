@@ -7,12 +7,5 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class BairroDTO {
-    private UUID id;
-    private Integer codigo;
-    private String nome;
-    private Cidade cidade;
-    private Boolean ativo;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+public record BairroDTO(UUID id, Long codigo, String nome, Cidade cidade) {
 }

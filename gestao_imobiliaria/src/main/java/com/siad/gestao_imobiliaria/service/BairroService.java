@@ -1,24 +1,29 @@
 package com.siad.gestao_imobiliaria.service;
 
 
+import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.repository.BairroRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BairroService {
 
     private final BairroRepository bairroRepository;
 
-
-
-    public Bairro addBairro(Bairro bairro) {
-        bairro.setCodigo(gerarProximoCodigo());
+    public Bairro createBairro(BairroDTO bairroDATA) {
+        Bairro bairro = new Bairro();
+        if (bairro.getCodigo() == null) {
+            Long codigo = gerarProximoCodigo();
+            bairro.setCodigo(codigo);
+        }
+        bairro.setNome(bairroDATA.nome());
+        bairro.setCidade(bairroDATA.cidade());
         return bairroRepository.save(bairro);
     }
 
@@ -29,12 +34,12 @@ public class BairroService {
 
 
 
-    public Bairro getBairroById(UUID id) {
+    public Bairro buscarBairroById(UUID id) {
         return bairroRepository.findById(id).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
     }
 
     public void deleteBairro(UUID id) {
-        Bairro bairro = getBairroById(id);
+        Bairro bairro = buscarBairroById(id);
         bairro.setAtivo(false);
     }
 

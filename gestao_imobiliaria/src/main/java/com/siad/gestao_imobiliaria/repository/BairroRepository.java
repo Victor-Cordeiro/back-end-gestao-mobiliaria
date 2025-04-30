@@ -10,9 +10,6 @@ import java.util.UUID;
 
 public interface BairroRepository extends JpaRepository<Bairro, UUID> {
     Optional<Bairro> findByNomeAndCidade(String nome, Cidade cidade);
-
-
-    @Query("SELECT MAX(e.codigo) FROM Bairro e")
+    @Query("SELECT MAX(b.codigo) FROM Bairro b")
     Long findMaxCodigo();
-    // Custom query methods can be defined here if needed
 }

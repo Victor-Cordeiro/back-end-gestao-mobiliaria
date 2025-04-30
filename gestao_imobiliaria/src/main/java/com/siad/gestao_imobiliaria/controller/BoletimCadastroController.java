@@ -1,6 +1,6 @@
 package com.siad.gestao_imobiliaria.controller;
 
-public class BoletimCadastroImovelController {
+public class BoletimCadastroController {
 
 
 }

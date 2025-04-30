@@ -8,18 +8,10 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class EnderecoDTO {
-
-    private UUID id;
-    private Integer codigo;
-    private Logradouro logradouro;
-    private Bairro bairro;
-    private String numero;
-    private String complemento;
-    private String cep;
-    private Boolean ativo;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-
+public record EnderecoDTO(UUID id, Long codigo, String logradouro, String numero,
+                          String complemento,
+                          String cep,
+                          String pontoReferencia,
+                          Bairro bairro) {
 
 }

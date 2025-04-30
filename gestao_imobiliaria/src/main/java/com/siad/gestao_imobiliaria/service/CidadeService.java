@@ -36,7 +36,7 @@ public class CidadeService {
 
 
     public Long gerarProximoCodigoSimples() {
-        Long maior = cidadeRepository.findMaxCodigo(); // Supondo que você tenha esse método
+        Long maior = cidadeRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;
     }
 

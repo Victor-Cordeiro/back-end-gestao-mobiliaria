@@ -17,7 +17,6 @@ public class TipoLogradouroDataBase {
 
     @PostConstruct
     public void init() {
-        // Lista de tipos de logradouro a serem inseridos, se não existirem
         List<String> tipos = List.of(
                 "Rua", "Avenida", "Travessa", "Alameda", "Estrada", "Rodovia", "Viela", "Largo", "Praça", "Via",
                 "Beco", "Passarela", "Passagem", "Parque", "Complexo", "Condomínio", "Setor", "Quadra", "Área",
@@ -27,7 +26,6 @@ public class TipoLogradouroDataBase {
         for (String tipo : tipos) {
             String tipoFormatado = tipo.trim();
 
-            // Verifica se o tipo já existe no banco de dados (ignorando maiúsculas/minúsculas)
             boolean existe = tipoLogradouroRepository
                     .findByDescricaoIgnoreCase(tipoFormatado)
                     .isPresent();
@@ -37,7 +35,7 @@ public class TipoLogradouroDataBase {
                 TipoLogradouro tipoLogradouro = new TipoLogradouro();
                 tipoLogradouro.setDescricao(tipoFormatado);
                 tipoLogradouro.setAtivo(true);
-                tipoLogradouro.setCodigo(geraCodigo()); // Definindo um código único, caso necessário
+                //tipoLogradouro.setCodigo(geraCodigo()); // Definindo um código único, caso necessário
                 tipoLogradouro.setCreateAt(LocalDateTime.now());
                 tipoLogradouro.setUpdateAt(LocalDateTime.now());
 

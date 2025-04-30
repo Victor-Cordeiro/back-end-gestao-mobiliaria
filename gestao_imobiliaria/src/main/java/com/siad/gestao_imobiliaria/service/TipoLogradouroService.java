@@ -19,7 +19,7 @@ public class TipoLogradouroService {
 
 
     public Long gerarProximoCodigoSimples() {
-        Long maior = tipoLogradouroRepository.findMaxCodigo(); // Supondo que você tenha esse método
+        Long maior = tipoLogradouroRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;
     }
 

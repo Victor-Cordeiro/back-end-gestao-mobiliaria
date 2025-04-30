@@ -2,21 +2,14 @@ package com.siad.gestao_imobiliaria.model;
 
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
-@Table(name = "responsavel_legal")
 public class ResponsavelLegal {
 
     @Id

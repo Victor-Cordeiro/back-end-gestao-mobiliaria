@@ -1,21 +1,14 @@
 package com.siad.gestao_imobiliaria.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "logradouro")
 public class Logradouro {
 
 
