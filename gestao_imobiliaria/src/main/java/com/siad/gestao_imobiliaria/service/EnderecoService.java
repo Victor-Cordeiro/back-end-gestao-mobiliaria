@@ -59,19 +59,26 @@ public class EnderecoService {
                 .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
     }
 
-
-
-
     public void deletar(UUID id) {
+        Endereco endereco = getEnderecoById(id);
+        endereco.setAtivo(false);;
+    }
 
-        enderecoRepository.deleteById(id);
+    private Endereco getEnderecoById(UUID id) {
+        return enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
     }
 
 
     public List<Endereco> listarTodos() {
-
         return enderecoRepository.findAll();
     }
+
+    public Long gerarProximoCodigoSimples() {
+        Long maior = enderecoRepository.findMaxCodigo(); // Supondo que você tenha esse método
+        return (maior == null) ? 1L : maior + 1;
+    }
+
+
 
 
 

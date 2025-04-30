@@ -27,10 +27,15 @@ public class CidadeController {
         return ResponseEntity.ok(cidadeService.getCidadeById(id));
     }
 
-//    @PostMapping
-//    public ResponseEntity<Cidade> criar(@RequestParam String nome) {
-//        Cidade cidade = cidadeService.addCidade(nome);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
-//    }
+    @PutMapping("delete/{id}")
+    public void deletar(@PathVariable UUID id){
+        cidadeService.deleteCidade(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Cidade> adicionar(@RequestBody Cidade cidade) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.addCidade(cidade));
+    }
+
 }
 

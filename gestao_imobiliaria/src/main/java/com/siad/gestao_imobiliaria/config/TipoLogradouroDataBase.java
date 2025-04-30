@@ -46,9 +46,6 @@ public class TipoLogradouroDataBase {
         }
     }
 
-    private Integer geraCodigo() {
-        // Gera um código único para o tipo de logradouro
-        return (int) tipoLogradouroRepository.count() + 1;
-    }
+
 
 }

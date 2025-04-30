@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/bairros")
 @RequiredArgsConstructor
@@ -25,9 +27,13 @@ public class BairroController {
 
 
     @PostMapping
-    public ResponseEntity<Bairro> buscarOuCriar(@RequestParam String nome, @RequestParam Cidade cidade) {
-        Bairro bairro = bairroService.buscarOuCriar(nome, cidade);
-        return ResponseEntity.ok(bairro);
+    public ResponseEntity<Bairro> adicionarBairro(@RequestBody Bairro bairro) {
+        return ResponseEntity.ok(bairroService.addBairro(bairro));
+    }
+
+    @PutMapping("delete/{id}")
+    public void deletarBairro(@PathVariable UUID id) {
+        bairroService.deleteBairro(id);
     }
 
 

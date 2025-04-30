@@ -5,11 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
-
 
 @Getter
 @Setter
@@ -22,15 +19,14 @@ public class Bairro {
     @GeneratedValue
     private UUID id;
 
-    private Integer codigo;
+    @Column(unique = true)
+    private Long codigo;
     private String nome;
     @ManyToOne
-    @JoinColumn(name = "cidade_id") // Essa é a FK para a tabela Cidade
     private Cidade cidade;
     private Boolean ativo;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-
 
 
     @PrePersist

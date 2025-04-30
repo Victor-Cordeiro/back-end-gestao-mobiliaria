@@ -16,32 +16,33 @@ public class BairroService {
     private final BairroRepository bairroRepository;
 
 
+
     public Bairro addBairro(Bairro bairro) {
+        bairro.setCodigo(gerarProximoCodigo());
         return bairroRepository.save(bairro);
     }
 
-    public Bairro buscarOuCriar(String nome, Cidade cidade) {
-        return bairroRepository.findByNomeAndCidade(nome, cidade)
-                .orElseGet(() -> {
-                    Bairro novo = new Bairro();
-                    novo.setNome(nome);
-                    novo.setCidade(cidade);
-                    return bairroRepository.save(novo);
-
-                });
-    }
 
     public Bairro buscarPorNome(String nome, Cidade cidade) {
-        return bairroRepository.findByNomeAndCidade(nome, cidade)
-                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+        return bairroRepository.findByNomeAndCidade(nome, cidade).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
     }
 
 
 
     public Bairro getBairroById(UUID id) {
-        return bairroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+        return bairroRepository.findById(id).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
     }
+
+    public void deleteBairro(UUID id) {
+        Bairro bairro = getBairroById(id);
+        bairro.setAtivo(false);
+    }
+
+    public Long gerarProximoCodigo() {
+        Long maior = bairroRepository.findMaxCodigo();
+        return (maior == null) ? 1L : maior + 1;
+    }
+
 
 
 

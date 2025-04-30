@@ -6,5 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface CidadeRepository extends JpaRepository<Cidade, UUID> {
+
+
+
+
+    @Query("SELECT MAX(e.codigo) FROM Endereco e")
+    Long findMaxCodigo();
+
+
+
     // Custom query methods can be defined here if needed{
 }

@@ -21,7 +21,8 @@ public class Cidade {
     @Id
     @GeneratedValue
     private UUID id;
-    private Integer codigo;
+    @Column(unique = true)
+    private Long codigo;
     private String nome;
     private Boolean ativo;
     private LocalDateTime createAt;

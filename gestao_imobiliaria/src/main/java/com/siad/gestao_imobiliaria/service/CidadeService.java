@@ -1,6 +1,7 @@
 package com.siad.gestao_imobiliaria.service;
 
 
+import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.repository.CidadeRepository;
@@ -27,6 +28,18 @@ public class CidadeService {
     public Cidade getCidadeById(UUID id) {
         return cidadeRepository.findById(id).orElse(null);
     }
+
+    public void deleteCidade(UUID id) {
+        Cidade cidade = getCidadeById(id);
+        cidade.setAtivo(false);
+    }
+
+
+    public Long gerarProximoCodigoSimples() {
+        Long maior = cidadeRepository.findMaxCodigo(); // Supondo que você tenha esse método
+        return (maior == null) ? 1L : maior + 1;
+    }
+
 
 
 

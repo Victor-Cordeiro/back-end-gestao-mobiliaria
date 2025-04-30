@@ -22,7 +22,8 @@ public class Logradouro {
     @Id
     @GeneratedValue
     private UUID id;
-    private Integer codigo;
+    @Column(unique = true)
+    private Long codigo;
     private String nome;
     private String nome_anterior;
     @ManyToOne
