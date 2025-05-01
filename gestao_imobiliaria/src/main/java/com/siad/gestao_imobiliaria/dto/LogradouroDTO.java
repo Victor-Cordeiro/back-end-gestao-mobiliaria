@@ -7,6 +7,5 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record LogradouroDTO(UUID id, Long codigo, String nome, TipoLogradouro tipoLogradouro,
-                             LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+public record LogradouroDTO(UUID id, Long codigo, String nome, TipoLogradouro tipoLogradouro) {
 }

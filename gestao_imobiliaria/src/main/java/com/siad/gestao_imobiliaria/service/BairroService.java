@@ -1,9 +1,7 @@
 package com.siad.gestao_imobiliaria.service;
 
-
 import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
-import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.repository.BairroRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,8 +26,8 @@ public class BairroService {
     }
 
 
-    public Bairro buscarPorNome(String nome, Cidade cidade) {
-        return bairroRepository.findByNomeAndCidade(nome, cidade).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+    public Bairro buscarPorNome(Bairro bairro) {
+        return bairroRepository.findByNomeAndCidade(bairro.getNome(), bairro.getCidade()).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
     }
 
 

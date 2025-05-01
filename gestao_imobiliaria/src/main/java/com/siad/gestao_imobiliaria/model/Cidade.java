@@ -14,7 +14,6 @@ public class Cidade {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(unique = true)
     private Long codigo;
     private String nome;
     private Boolean ativo;

@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.controller;
 
+import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.service.CidadeService;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,8 @@ public class CidadeController {
     }
 
     @PostMapping
-    public ResponseEntity<Cidade> adicionar(@RequestBody Cidade cidade) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.addCidade(cidade));
+    public ResponseEntity<Cidade> adicionar(@RequestBody CidadeDTO cidade) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.createCidade(cidade));
     }
 
 }

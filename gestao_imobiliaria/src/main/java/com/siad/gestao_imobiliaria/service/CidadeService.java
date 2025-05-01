@@ -1,9 +1,8 @@
 package com.siad.gestao_imobiliaria.service;
 
 
-import com.siad.gestao_imobiliaria.model.Bairro;
+import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.Cidade;
-import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.repository.CidadeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,13 @@ public class CidadeService {
         return cidadeRepository.findAll();
     }
 
-    public Cidade addCidade(Cidade cidade) {
+    public Cidade createCidade(CidadeDTO cidadeDATA) {
+        Cidade cidade = new Cidade();
+        if (cidade.getCodigo() == null) {
+            Long codigo = gerarProximoCodigoSimples();
+            cidade.setCodigo(codigo);
+        }
+        cidade.setNome(cidadeDATA.nome());
         return cidadeRepository.save(cidade);
     }
 

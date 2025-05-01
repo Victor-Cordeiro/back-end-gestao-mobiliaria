@@ -16,10 +16,8 @@ public class BoletimCadastro {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
     private Long codigo;
 
-    @Column(unique = true)
     private String matricula;
 
     @ManyToOne

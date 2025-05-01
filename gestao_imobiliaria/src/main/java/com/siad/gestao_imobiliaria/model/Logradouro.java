@@ -15,7 +15,6 @@ public class Logradouro {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(unique = true)
     private Long codigo;
     private String nome;
     private String nome_anterior;

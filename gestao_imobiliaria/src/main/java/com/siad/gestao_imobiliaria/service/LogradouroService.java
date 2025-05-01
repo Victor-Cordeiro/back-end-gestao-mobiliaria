@@ -1,6 +1,7 @@
 package com.siad.gestao_imobiliaria.service;
 
 
+import com.siad.gestao_imobiliaria.dto.LogradouroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.TipoLogradouro;
@@ -23,14 +24,16 @@ public class LogradouroService {
                 .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
     }
 
-
-    public Optional<Object> buscarPorNome(String nome, TipoLogradouro tipo) {
-        return logradouroRepository.findByNomeAndTipo(nome, tipo);
-    }
-
-    public Logradouro createLogradouro(String nome, TipoLogradouro tipoLogradouro) {
+    public Logradouro createLogradouro(LogradouroDTO logradouroDATA) {
         Logradouro logradouro = new Logradouro();
-        logradouro.setNome(nome);
+        if (logradouro.getCodigo() == null) {
+            Long codigo = gerarProximoCodigoSimples();
+            logradouro.setCodigo(codigo);
+        }
+        logradouro.setNome(logradouroDATA.nome());
+        //logradouro.setNome_anterior(logradouroDATA.nomeAnterior());
+
+        //logradouro.setNome(nome);
         logradouro.setTipo(tipoLogradouro);
         return logradouroRepository.save(logradouro);
     }

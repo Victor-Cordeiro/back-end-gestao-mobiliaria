@@ -14,7 +14,6 @@ public class TipoLogradouro {
     @Id
     @GeneratedValue
     private UUID id;
-    @Column(unique = true)
     private Long codigo;
     private String descricao;
     private Boolean ativo;
