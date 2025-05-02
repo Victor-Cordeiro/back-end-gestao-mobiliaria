@@ -1,11 +1,18 @@
 package com.siad.gestao_imobiliaria.controller;
 
-import com.siad.gestao_imobiliaria.model.Endereco;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.UUID;
 
+
+
+
+@RestController
+@RequestMapping("/responsavel-legal")
+@RequiredArgsConstructor
 public class ResponsalLegal {
+
 
 
 }

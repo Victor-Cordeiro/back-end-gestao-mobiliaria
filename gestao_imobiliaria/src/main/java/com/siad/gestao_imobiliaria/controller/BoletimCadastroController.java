@@ -4,6 +4,7 @@ import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.BoletimCadastro;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.service.BoletimCadastroService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/boletim-cadastro")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BoletimCadastroController {
 
     private final BoletimCadastroService boletimCadastroService;

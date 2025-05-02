@@ -4,6 +4,7 @@ package com.siad.gestao_imobiliaria.controller;
 import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.service.BairroService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/bairros")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BairroController {
 
     private final BairroService bairroService;

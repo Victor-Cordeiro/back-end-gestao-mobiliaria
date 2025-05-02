@@ -45,11 +45,11 @@ public class LogradouroController {
     public void deletarLogradouro(@PathVariable UUID id) {
         logradouroService.deletar(id);
     }
-//
-//    @PutMapping
-//    public void updateLogradouro(@RequestBody LogradouroDTO logradouroDATA) {
-//        return ResponseEntity.ok(logradouroService.updateLogradouro(logradouroDATA));
-//    }
+
+    @PutMapping
+   public void updateLogradouro(@RequestBody LogradouroDTO logradouroDATA) {
+       return ResponseEntity.ok(logradouroService.updateLogradouro(logradouroDATA));
+   }
 
 
 
