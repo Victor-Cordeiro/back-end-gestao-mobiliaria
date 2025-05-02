@@ -16,7 +16,10 @@ public interface LogradouroRepository extends JpaRepository<Logradouro, UUID> {
 
 
 
-    @Query("SELECT MAX(e.codigo) FROM logradouro e")
+    @Query("SELECT MAX(l.codigo) FROM Logradouro l")
     Long findMaxCodigo();
 
+
+
+    Optional<Logradouro> findByCodigo();
 }

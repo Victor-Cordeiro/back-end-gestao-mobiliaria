@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Data
 @Entity
+
 public class Logradouro {
 
 

@@ -15,6 +15,8 @@ public class BoletimCadastroService {
 
     public BoletimCadastro createBoletimCadastro(BoletimCadastroDTO boletimCadastroDATA) {
         BoletimCadastro boletim = new BoletimCadastro();
+
+
         if (boletim.getCodigo() == null) {
             Long codigo = gerarProximoCodigo();
             boletim.setCodigo(codigo);
@@ -26,16 +28,6 @@ public class BoletimCadastroService {
         boletim.setEnderecoImovel(boletimCadastroDATA.enderecoImovel());
         return boletimRepository.save(boletim);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

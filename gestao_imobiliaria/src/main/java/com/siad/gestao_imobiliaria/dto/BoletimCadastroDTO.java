@@ -9,6 +9,6 @@ public record BoletimCadastroDTO(UUID id, Long codigo,
                                  String matricula,
                                  ResponsavelLegal responsavel,
                                  Endereco enderecoCorrespondencia,
-                                 Endereco enderecoImovel,
-                                 Boolean ativo ) {
+                                 Endereco enderecoImovel,Boolean ativo
+                                 ) {
 }

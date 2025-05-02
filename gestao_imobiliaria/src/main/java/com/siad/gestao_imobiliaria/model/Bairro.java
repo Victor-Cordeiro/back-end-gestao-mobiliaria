@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-//@Getter @Setter
 @Data
 @Entity
 public class Bairro {
@@ -14,10 +13,11 @@ public class Bairro {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true)
+
     private Long codigo;
     private String nome;
     @ManyToOne
+    @JoinColumn(name= "cidade_id")
     private Cidade cidade;
     private Boolean ativo;
     private LocalDateTime createAt;

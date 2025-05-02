@@ -7,6 +7,7 @@ import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.repository.BairroRepository;
 import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
@@ -26,7 +27,7 @@ public class EnderecoService {
         Endereco endereco = new Endereco();
 
         if (dto.codigo() == null) {
-            endereco.setCodigo(gerarProximoCodigoSimples());
+            endereco.setCodigo(gerarProximoCodigo());
         } else {
             endereco.setCodigo(dto.codigo());
         }
@@ -92,7 +93,7 @@ public class EnderecoService {
         return enderecoRepository.findAll();
     }
 
-    public Long gerarProximoCodigoSimples() {
+    public Long gerarProximoCodigo() {
         Long maior = enderecoRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;
     }

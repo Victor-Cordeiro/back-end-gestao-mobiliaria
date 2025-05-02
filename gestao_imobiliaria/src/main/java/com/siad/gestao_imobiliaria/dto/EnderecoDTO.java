@@ -12,6 +12,6 @@ public record EnderecoDTO(UUID id, Long codigo, String logradouro, String numero
                           String complemento,
                           String cep,
                           String pontoReferencia,
-                          Bairro bairro) {
+                          Bairro bairro, Boolean ativo) {
 
 }

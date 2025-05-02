@@ -2,22 +2,22 @@ package com.siad.gestao_imobiliaria.service;
 
 
 import com.siad.gestao_imobiliaria.dto.LogradouroDTO;
-import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.TipoLogradouro;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
 import com.siad.gestao_imobiliaria.repository.TipoLogradouroRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LogradouroService {
 
     private final LogradouroRepository logradouroRepository;
+    private final TipoLogradouroRepository tipoLogradouroRepository;
 
     public Logradouro buscarPorId(UUID id) {
         return logradouroRepository.findById(id)
@@ -26,17 +26,25 @@ public class LogradouroService {
 
     public Logradouro createLogradouro(LogradouroDTO logradouroDATA) {
         Logradouro logradouro = new Logradouro();
-        if (logradouro.getCodigo() == null) {
-            Long codigo = gerarProximoCodigoSimples();
-            logradouro.setCodigo(codigo);
-        }
-        logradouro.setNome(logradouroDATA.nome());
-        //logradouro.setNome_anterior(logradouroDATA.nomeAnterior());
 
-        //logradouro.setNome(nome);
+        TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDATA.tipoLogradouroCodigo())
+                .orElseThrow(() -> new RuntimeException("TipoLogradouro não encontrado com código: " + logradouroDATA.tipoLogradouroCodigo()));
+
+        if (logradouroDATA.codigo() == null) {
+            Long codigo = gerarProximoCodigo();
+            logradouro.setCodigo(codigo);
+        } else {
+            logradouro.setCodigo(logradouroDATA.codigo());
+        }
+
+        logradouro.setNome(logradouroDATA.nome());
+        logradouro.setNome_anterior(logradouroDATA.nome());
         logradouro.setTipo(tipoLogradouro);
+        logradouro.setAtivo(logradouroDATA.ativo());
+
         return logradouroRepository.save(logradouro);
     }
+
 
 
     public Logradouro atualizar(UUID id, Logradouro novo) {
@@ -61,10 +69,11 @@ public class LogradouroService {
     public void deletar(UUID id) {
         Logradouro logradouro = getLogradouroById(id);
         logradouro.setAtivo(false);
+        logradouroRepository.save(logradouro);
     }
 
-    public Long gerarProximoCodigoSimples() {
-        Long maior = logradouroRepository.findMaxCodigo(); // Supondo que você tenha esse método
+    public Long gerarProximoCodigo() {
+        Long maior = logradouroRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;
     }
 

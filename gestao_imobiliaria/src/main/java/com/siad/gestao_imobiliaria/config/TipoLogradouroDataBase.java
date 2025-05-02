@@ -30,18 +30,18 @@ public class TipoLogradouroDataBase {
                     .findByDescricaoIgnoreCase(tipoFormatado)
                     .isPresent();
 
-            // Se não existir, cria um novo tipo de logradouro
             if (!existe) {
                 TipoLogradouro tipoLogradouro = new TipoLogradouro();
                 tipoLogradouro.setDescricao(tipoFormatado);
                 tipoLogradouro.setAtivo(true);
-                //tipoLogradouro.setCodigo(geraCodigo()); // Definindo um código único, caso necessário
-                tipoLogradouro.setCreateAt(LocalDateTime.now());
-                tipoLogradouro.setUpdateAt(LocalDateTime.now());
-
+                tipoLogradouro.setCodigo(gerarProximoCodigo());
                 tipoLogradouroRepository.save(tipoLogradouro);
             }
         }
+    }
+    public Long gerarProximoCodigo() {
+        Long maior = tipoLogradouroRepository.findMaxCodigo();
+        return (maior == null) ? 1L : maior + 1;
     }
 
 

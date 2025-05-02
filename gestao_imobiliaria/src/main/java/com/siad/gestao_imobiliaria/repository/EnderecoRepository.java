@@ -1,9 +1,11 @@
 package com.siad.gestao_imobiliaria.repository;
 
+import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.model.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,6 +14,10 @@ public interface EnderecoRepository extends JpaRepository<Endereco, UUID> {
 
 
 
-    @Query("SELECT MAX(e.codigo) FROM endereco e")
+    @Query("SELECT MAX(e.codigo) FROM Endereco e")
     Long findMaxCodigo();
+
+
+    List<Endereco> findByAtivoTrue();
+
 }
