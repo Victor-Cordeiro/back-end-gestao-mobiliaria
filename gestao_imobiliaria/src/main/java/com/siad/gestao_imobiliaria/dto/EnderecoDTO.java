@@ -8,10 +8,10 @@ import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record EnderecoDTO(UUID id, Long codigo, String logradouro, String numero,
+public record EnderecoDTO(Long codigo, String logradouro, String numero,
                           String complemento,
                           String cep,
                           String pontoReferencia,
-                          Bairro bairro, Boolean ativo) {
+                          Bairro bairro) {
 
 }

@@ -21,25 +21,25 @@ public class BoletimCadastroController {
     private final BoletimCadastroService boletimCadastroService;
 
 
-//    @GetMapping
-//    public ResponseEntity<List<BoletimCadastro>> listarTodas() {
-//        return ResponseEntity.ok(boletimCadastroService.);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Cidade> buscarPorId(@PathVariable UUID id) {
-//        return ResponseEntity.ok(cidadeService.getCidadeById(id));
-//    }
-//
-//    @PutMapping("delete/{id}")
-//    public void deletar(@PathVariable UUID id){
-//        cidadeService.deleteCidade(id);
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<Cidade> adicionar(@RequestBody CidadeDTO cidade) {
-//        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.createCidade(cidade));
-//    }
+    @GetMapping
+    public ResponseEntity<List<BoletimCadastro>> listarTodas() {
+        return ResponseEntity.ok(boletimCadastroService.);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cidade> buscarPorId(@PathVariable UUID id) {
+        return ResponseEntity.ok(boletimCadastroService.getCidadeById(id));
+    }
+
+    @PutMapping("delete/{id}")
+    public void deletar(@PathVariable UUID id){
+        cidadeService.deleteCidade(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Cidade> adicionar(@RequestBody CidadeDTO cidade) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.createCidade(cidade));
+    }
 
 
 

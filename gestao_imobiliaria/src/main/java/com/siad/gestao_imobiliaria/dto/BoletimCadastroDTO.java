@@ -5,10 +5,10 @@ import com.siad.gestao_imobiliaria.model.ResponsavelLegal;
 
 import java.util.UUID;
 
-public record BoletimCadastroDTO(UUID id, Long codigo,
+public record BoletimCadastroDTO(
                                  String matricula,
                                  ResponsavelLegal responsavel,
                                  Endereco enderecoCorrespondencia,
-                                 Endereco enderecoImovel,Boolean ativo
+                                 Endereco enderecoImovel
                                  ) {
 }
