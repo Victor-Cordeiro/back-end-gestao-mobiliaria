@@ -20,8 +20,6 @@ public class LogradouroController {
 
     private final LogradouroService logradouroService;
     private final LogradouroRepository logradouroRepository;
-    private final TipoLogradouroRepository tipoLogradouroRepository;
-
 
 
 
@@ -46,10 +44,7 @@ public class LogradouroController {
         logradouroService.deletar(id);
     }
 
-    @PutMapping
-   public void updateLogradouro(@RequestBody LogradouroDTO logradouroDATA) {
-       return ResponseEntity.ok(logradouroService.updateLogradouro(logradouroDATA));
-   }
+
 
 
 
