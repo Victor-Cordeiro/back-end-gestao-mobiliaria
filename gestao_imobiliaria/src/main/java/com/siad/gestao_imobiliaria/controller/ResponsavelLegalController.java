@@ -33,11 +33,11 @@ public class ResponsavelLegalController {
         return ResponseEntity.ok(responsavelLegalService.getById(id));
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponsavelLegal> atualizar(@PathVariable UUID id, @RequestBody ResponsavelLegalDTO dto) {
-//        ResponsavelLegal atualizado = responsavelLegalService.updateResponsavel(id, dto);
-//        return ResponseEntity.ok(atualizado);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponsavelLegal> atualizar(@PathVariable UUID id, @RequestBody ResponsavelLegalDTO dto) {
+        ResponsavelLegal atualizado = responsavelLegalService.atualizar(id, dto);
+        return ResponseEntity.ok(atualizado);
+    }
 
 
     @PutMapping("/delete/{id}")
