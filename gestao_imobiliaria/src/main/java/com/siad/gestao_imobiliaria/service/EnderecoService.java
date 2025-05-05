@@ -36,9 +36,9 @@ public class EnderecoService {
         endereco.setComplemento(dto.complemento());
         endereco.setCep(dto.cep());
 
-        Logradouro logradouro = logradouroRepository.findById(dto.id())
+        Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
                 .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
-        Bairro bairro = bairroRepository.findById(dto.id())
+        Bairro bairro = bairroRepository.findById(dto.bairro().getId())
                 .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
 
         endereco.setLogradouro(logradouro);
@@ -57,9 +57,9 @@ public class EnderecoService {
         atual.setComplemento(dto.complemento());
         atual.setCep(dto.cep());
 
-        Logradouro logradouro = logradouroRepository.findById(dto.id())
+        Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
                 .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
-        Bairro bairro = bairroRepository.findById(dto.id())
+        Bairro bairro = bairroRepository.findById(dto.bairro().getId())
                 .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
 
         atual.setLogradouro(logradouro);

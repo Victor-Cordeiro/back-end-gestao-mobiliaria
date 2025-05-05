@@ -21,5 +21,6 @@ public interface LogradouroRepository extends JpaRepository<Logradouro, UUID> {
 
 
 
-    Optional<Logradouro> findByCodigo();
+    Optional<Logradouro> findByCodigo(Long codigo);
+
 }

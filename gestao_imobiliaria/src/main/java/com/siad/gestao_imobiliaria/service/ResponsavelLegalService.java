@@ -3,8 +3,11 @@ package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.dto.ResponsavelLegalDTO;
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
+import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.ResponsavelLegal;
+import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
+import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
 import com.siad.gestao_imobiliaria.repository.ResponsavelLegalRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -20,10 +23,15 @@ public class ResponsavelLegalService {
 
     private final ResponsavelLegalRepository responsavelLegalRepository;
     private final EnderecoService enderecoService;
+   private final EnderecoRepository enderecoRepository;
 
 
     public ResponsavelLegal createResponsavelLegal(ResponsavelLegalDTO dto) {
         ResponsavelLegal responsavelLegal = new ResponsavelLegal();
+
+        Endereco endereco = enderecoRepository.findById(dto.enderecoResponsavel().getId())
+                .orElseThrow(() -> new RuntimeException("ewndereco não encontrado"));
+
 
         if (responsavelLegal.getCodigo() == null) {
             responsavelLegal.setCodigo(gerarProximoCodigo());
@@ -35,7 +43,7 @@ public class ResponsavelLegalService {
         responsavelLegal.setTelefoneCelular(dto.telefoneCelular());
         responsavelLegal.setEmail(dto.email());
         responsavelLegal.setNumeroDocumento(dto.numeroDocumento());
-        responsavelLegal.setEnderecoResponsavel(enderecoService.createEndereco(dto.enderecoResponsavel()));
+        responsavelLegal.setEnderecoResponsavel(endereco);
         return responsavelLegalRepository.save(responsavelLegal);
     }
 
@@ -48,18 +56,18 @@ public class ResponsavelLegalService {
                 .orElseThrow(() -> new EntityNotFoundException("Responsável legal não encontrado com ID: " + id));
     }
 
-    public ResponsavelLegal updateResponsavel(UUID id, ResponsavelLegalDTO dto) {
-        ResponsavelLegal responsavel = getById(id);
-        responsavel.setTipoResponsavel(TipoResponsavel.valueOf(dto.tipoResponsavel().toUpperCase()));
-        responsavel.setNome(dto.nome());
-        responsavel.setTelefoneFixo(dto.telefoneFixo());
-        responsavel.setTelefoneCelular(dto.telefoneCelular());
-        responsavel.setEmail(dto.email());
-        responsavel.setNumeroDocumento(dto.numeroDocumento());
-        responsavel.setEnderecoResponsavel(enderecoService.createEndereco(dto.enderecoResponsavel()));
-
-        return responsavelLegalRepository.save(responsavel);
-    }
+//    public ResponsavelLegal updateResponsavel(UUID id, ResponsavelLegalDTO dto) {
+//        ResponsavelLegal responsavel = getById(id);
+//        responsavel.setTipoResponsavel(TipoResponsavel.valueOf(dto.tipoResponsavel().toUpperCase()));
+//        responsavel.setNome(dto.nome());
+//        responsavel.setTelefoneFixo(dto.telefoneFixo());
+//        responsavel.setTelefoneCelular(dto.telefoneCelular());
+//        responsavel.setEmail(dto.email());
+//        responsavel.setNumeroDocumento(dto.numeroDocumento());
+//        responsavel.setEnderecoResponsavel(enderecoService.createEndereco(dto.enderecoResponsavel()));
+//
+//        return responsavelLegalRepository.save(responsavel);
+//    }
 
 
 

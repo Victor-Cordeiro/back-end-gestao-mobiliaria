@@ -39,7 +39,7 @@ public class BairroService {
 
 
     public List<Bairro> getAllBairros() {
-        return bairroRepository.findAll();
+        return bairroRepository.findByCidadeIsNotNullAndCidadeAtivoTrue();
     }
 
     public Bairro buscarBairroById(UUID id) {
@@ -53,10 +53,7 @@ public class BairroService {
         bairroRepository.save(bairro);
     }
 
-    public Long gerarProximoCodigo() {
-        Long maior = bairroRepository.findMaxCodigo();
-        return (maior == null) ? 1L : maior + 1;
-    }
+
 
 
     public Bairro buscarOuCriar(BairroDTO bairroDTO) {
@@ -73,6 +70,11 @@ public class BairroService {
                     return bairroRepository.save(novoBairro);
                 });
     }
+    public Long gerarProximoCodigo() {
+        Long maior = bairroRepository.findMaxCodigo();
+        return (maior == null) ? 1L : maior + 1;
+    }
+
 
 
 

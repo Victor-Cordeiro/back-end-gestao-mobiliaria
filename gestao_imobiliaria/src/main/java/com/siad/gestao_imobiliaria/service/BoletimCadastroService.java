@@ -3,7 +3,11 @@ package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.dto.BoletimCadastroDTO;
 import com.siad.gestao_imobiliaria.model.BoletimCadastro;
+import com.siad.gestao_imobiliaria.model.Endereco;
+import com.siad.gestao_imobiliaria.model.ResponsavelLegal;
 import com.siad.gestao_imobiliaria.repository.BoletimCadastroRepository;
+import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
+import com.siad.gestao_imobiliaria.repository.ResponsavelLegalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +19,20 @@ import java.util.UUID;
 public class BoletimCadastroService {
 
     private final BoletimCadastroRepository boletimRepository;
+    private final EnderecoRepository enderecoRepository;
+    private final ResponsavelLegalRepository reposponsavelLegalRepository;
 
     public BoletimCadastro createBoletimCadastro(BoletimCadastroDTO boletimCadastroDATA) {
         BoletimCadastro boletim = new BoletimCadastro();
+
+        ResponsavelLegal responsavelLegal = reposponsavelLegalRepository.findById(boletimCadastroDATA.responsavel().getId())
+                .orElseThrow(() -> new RuntimeException("Responsável legal não encontrado"));
+
+        Endereco enderecoCorrespondencia = enderecoRepository.findById(boletimCadastroDATA.enderecoCorrespondencia().getId())
+                .orElseThrow(() -> new RuntimeException("Endereço de correspondência não encontrado"));
+
+        Endereco enderecoImovel = enderecoRepository.findById(boletimCadastroDATA.enderecoImovel().getId())
+                .orElseThrow(() -> new RuntimeException("Endereço do imóvel não encontrado"));
 
 
         if (boletim.getCodigo() == null) {
@@ -27,8 +42,8 @@ public class BoletimCadastroService {
 
         boletim.setMatricula(boletimCadastroDATA.matricula());
         boletim.setResponsavel(boletimCadastroDATA.responsavel());
-        boletim.setEnderecoCorrespondencia(boletimCadastroDATA.enderecoCorrespondencia());
-        boletim.setEnderecoImovel(boletimCadastroDATA.enderecoImovel());
+        boletim.setEnderecoCorrespondencia(enderecoCorrespondencia);
+        boletim.setEnderecoImovel(enderecoImovel);
         return boletimRepository.save(boletim);
     }
 

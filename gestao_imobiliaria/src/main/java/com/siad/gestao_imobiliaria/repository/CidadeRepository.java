@@ -25,5 +25,9 @@ public interface CidadeRepository extends JpaRepository<Cidade, UUID> {
 
     List<Cidade> findByAtivoTrue();
 
+
+
+    Optional<Cidade> findFirstByNomeIgnoreCase(String nome);
+
     // Custom query methods can be defined here if needed{
 }

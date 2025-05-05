@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.controller;
 
+import com.siad.gestao_imobiliaria.dto.BoletimCadastroDTO;
 import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.BoletimCadastro;
 import com.siad.gestao_imobiliaria.model.Cidade;
@@ -23,22 +24,22 @@ public class BoletimCadastroController {
 
     @GetMapping
     public ResponseEntity<List<BoletimCadastro>> listarTodas() {
-        return ResponseEntity.ok(boletimCadastroService.);
+        return ResponseEntity.ok(boletimCadastroService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cidade> buscarPorId(@PathVariable UUID id) {
-        return ResponseEntity.ok(boletimCadastroService.getCidadeById(id));
+    public ResponseEntity<BoletimCadastro> buscarPorId(@PathVariable UUID id) {
+        return ResponseEntity.ok(boletimCadastroService.getById(id));
     }
 
     @PutMapping("delete/{id}")
     public void deletar(@PathVariable UUID id){
-        cidadeService.deleteCidade(id);
+        boletimCadastroService.delete(id);
     }
 
     @PostMapping
-    public ResponseEntity<Cidade> adicionar(@RequestBody CidadeDTO cidade) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.createCidade(cidade));
+    public ResponseEntity<BoletimCadastro> adicionar(@RequestBody BoletimCadastroDTO boletimDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(boletimCadastroService.createBoletimCadastro(boletimDTO));
     }
 
 

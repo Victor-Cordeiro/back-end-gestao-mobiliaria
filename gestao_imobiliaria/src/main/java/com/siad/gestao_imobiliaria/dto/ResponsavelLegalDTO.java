@@ -1,5 +1,7 @@
 package com.siad.gestao_imobiliaria.dto;
 
+import com.siad.gestao_imobiliaria.model.Endereco;
+
 public record ResponsavelLegalDTO(
         Long codigo,
         String nome,
@@ -8,7 +10,7 @@ public record ResponsavelLegalDTO(
         String email,
         String numeroDocumento,
         String tipoResponsavel,
-        EnderecoDTO enderecoResponsavel,
+        Endereco enderecoResponsavel,
         Boolean ativo
 ) {
 }
