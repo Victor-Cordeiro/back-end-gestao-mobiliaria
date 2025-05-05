@@ -13,36 +13,47 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/bairros")
+@RequestMapping("/bairro")
 @AllArgsConstructor
 public class BairroController {
 
     private final BairroService bairroService;
 
+    //Criar um novo bairro
+    @PostMapping("/adicionar")
+    public ResponseEntity<Bairro> adicionarBairro(@RequestBody BairroDTO bairroDATA) {
+        return ResponseEntity.ok(bairroService.createBairro(bairroDATA));
+    }
 
-    //ok
+
+    //Listar todos os bairros
     @GetMapping
     public ResponseEntity<List<Bairro>> listarTodas() {
         return ResponseEntity.ok(bairroService.getAllBairros());
     }
 
-    //ok
+    //Listar por id
     @GetMapping("/{id}")
     public ResponseEntity<Bairro> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(bairroService.buscarBairroById(id));
     }
 
-    //ok
-    @PostMapping
-    public ResponseEntity<Bairro> adicionarBairro(@RequestBody BairroDTO bairroDATA) {
-        return ResponseEntity.ok(bairroService.createBairro(bairroDATA));
-    }
 
-    //ok
+    //deleta um bairro
     @PutMapping("delete/{id}")
     public void deletarBairro(@PathVariable UUID id) {
         bairroService.deleteBairro(id);
     }
+
+    @PostMapping("/buscar-ou-criar")
+    public ResponseEntity<Bairro> buscarOuCriar(@RequestBody BairroDTO bairroDTO) {
+        Bairro bairro = bairroService.buscarOuCriar(bairroDTO);
+        return ResponseEntity.ok(bairro);
+    }
+
+
+
+
 
 
 

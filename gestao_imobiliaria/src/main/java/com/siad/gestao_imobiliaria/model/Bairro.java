@@ -33,6 +33,7 @@ public class Bairro {
 
     @PreUpdate
     public void preUpdate() {
+
         this.updateAt = LocalDateTime.now();
     }
 

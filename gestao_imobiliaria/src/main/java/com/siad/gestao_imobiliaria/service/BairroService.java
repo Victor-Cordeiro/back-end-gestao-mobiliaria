@@ -18,28 +18,27 @@ public class BairroService {
     private final BairroRepository bairroRepository;
     private final CidadeRepository cidadeRepository;
 
-    public Bairro createBairro(BairroDTO bairroDATA) {
+    //metodo para criar um bairro, que recebe o dto de bairro como parametro
+    public Bairro createBairro(BairroDTO bairroDTO) {
         Bairro bairro = new Bairro();
-        Cidade cidade = cidadeRepository.findByCodigo(bairroDATA.codigoCidade())
-                .orElseThrow(() -> new RuntimeException("Cidade não encontrada com ID: " + bairroDATA.codigoCidade()));
+        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
+                .orElseThrow(() -> new RuntimeException("Cidade não encontrada com ID: " + bairroDTO.codigoCidade()));
+
 
         if (bairro.getCodigo() == null) {
             Long codigo = gerarProximoCodigo();
             bairro.setCodigo(codigo);
         }
-        bairro.setNome(bairroDATA.nome());
 
+
+        bairro.setNome(bairroDTO.nome());
         bairro.setCidade(cidade);
         return bairroRepository.save(bairro);
     }
 
-    public Bairro buscarPorNome(Bairro bairro) {
-        return bairroRepository.findByNomeAndCidade(bairro.getNome(), bairro.getCidade()).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
-    }
+
 
     public List<Bairro> getAllBairros() {
-
-
         return bairroRepository.findAll();
     }
 
@@ -59,6 +58,21 @@ public class BairroService {
         return (maior == null) ? 1L : maior + 1;
     }
 
+
+    public Bairro buscarOuCriar(BairroDTO bairroDTO) {
+        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
+                .orElseThrow(() -> new RuntimeException("Cidade não encontrada com código: " + bairroDTO.codigoCidade()));
+
+        return bairroRepository.findByNomeAndCidade(bairroDTO.nome(), cidade)
+                .orElseGet(() -> {
+                    Bairro novoBairro = new Bairro();
+                    novoBairro.setNome(bairroDTO.nome());
+                    novoBairro.setCidade(cidade);
+                    novoBairro.setAtivo(true);
+                    novoBairro.setCodigo(gerarProximoCodigo());
+                    return bairroRepository.save(novoBairro);
+                });
+    }
 
 
 
