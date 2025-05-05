@@ -7,7 +7,6 @@ import com.siad.gestao_imobiliaria.repository.BairroRepository;
 import com.siad.gestao_imobiliaria.repository.CidadeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +17,7 @@ public class BairroService {
     private final BairroRepository bairroRepository;
     private final CidadeRepository cidadeRepository;
 
-    //metodo para criar um bairro, que recebe o dto de bairro como parametro
+
     public Bairro createBairro(BairroDTO bairroDTO) {
         Bairro bairro = new Bairro();
         Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
@@ -29,7 +28,6 @@ public class BairroService {
             Long codigo = gerarProximoCodigo();
             bairro.setCodigo(codigo);
         }
-
 
         bairro.setNome(bairroDTO.nome());
         bairro.setCidade(cidade);
@@ -70,6 +68,8 @@ public class BairroService {
                     return bairroRepository.save(novoBairro);
                 });
     }
+
+
     public Long gerarProximoCodigo() {
         Long maior = bairroRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;

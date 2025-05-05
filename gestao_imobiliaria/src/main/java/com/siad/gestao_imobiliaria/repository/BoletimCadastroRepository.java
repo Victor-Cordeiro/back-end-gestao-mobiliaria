@@ -18,5 +18,7 @@ public interface BoletimCadastroRepository extends JpaRepository<BoletimCadastro
     List<BoletimCadastro> findByAtivoTrue();
 
 
+
+
     // Custom query methods can be defined here if needed{
 }

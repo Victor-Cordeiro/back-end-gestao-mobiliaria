@@ -40,7 +40,7 @@ public class ResponsavelLegalController {
 //    }
 
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/delete/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID id) {
         responsavelLegalService.deletar(id);
         return ResponseEntity.noContent().build();

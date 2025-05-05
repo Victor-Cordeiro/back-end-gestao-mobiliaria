@@ -42,6 +42,11 @@ public class BoletimCadastroController {
         return ResponseEntity.status(HttpStatus.CREATED).body(boletimCadastroService.createBoletimCadastro(boletimDTO));
     }
 
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<BoletimCadastro> atualizar(@PathVariable UUID id, @RequestBody BoletimCadastroDTO boletimDTO) {
+        return ResponseEntity.ok(boletimCadastroService.update(boletimDTO, id));
+    }
+
 
 
 

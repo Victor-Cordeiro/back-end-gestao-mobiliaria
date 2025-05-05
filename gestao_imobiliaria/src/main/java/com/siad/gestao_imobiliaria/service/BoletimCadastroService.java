@@ -44,13 +44,14 @@ public class BoletimCadastroService {
         boletim.setResponsavel(boletimCadastroDATA.responsavel());
         boletim.setEnderecoCorrespondencia(enderecoCorrespondencia);
         boletim.setEnderecoImovel(enderecoImovel);
+        boletim.setResponsavel(responsavelLegal);
         return boletimRepository.save(boletim);
     }
 
     private final BoletimCadastroRepository boletimCadastroRepository;
 
     public List<BoletimCadastro> getAll() {
-        return boletimCadastroRepository.findAll();
+        return boletimCadastroRepository.findByAtivoTrue();
     }
 
     public BoletimCadastro getById(UUID id) {
