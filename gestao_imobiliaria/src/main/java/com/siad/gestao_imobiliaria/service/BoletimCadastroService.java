@@ -2,6 +2,9 @@ package com.siad.gestao_imobiliaria.service;
 
 
 import com.siad.gestao_imobiliaria.dto.BoletimCadastroDTO;
+import com.siad.gestao_imobiliaria.exceptions.BoletimException;
+import com.siad.gestao_imobiliaria.exceptions.EnderecoException;
+import com.siad.gestao_imobiliaria.exceptions.ResponsavelLegalException;
 import com.siad.gestao_imobiliaria.model.BoletimCadastro;
 import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.model.ResponsavelLegal;
@@ -26,13 +29,13 @@ public class BoletimCadastroService {
         BoletimCadastro boletim = new BoletimCadastro();
 
         ResponsavelLegal responsavelLegal = reposponsavelLegalRepository.findById(boletimCadastroDATA.responsavel().getId())
-                .orElseThrow(() -> new RuntimeException("Responsável legal não encontrado"));
+                .orElseThrow(() -> ResponsavelLegalException.responsavelNaoEncontrado(boletimCadastroDATA.responsavel().getId()));
 
         Endereco enderecoCorrespondencia = enderecoRepository.findById(boletimCadastroDATA.enderecoCorrespondencia().getId())
-                .orElseThrow(() -> new RuntimeException("Endereço de correspondência não encontrado"));
+                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(boletimCadastroDATA.enderecoCorrespondencia().getId()));
 
         Endereco enderecoImovel = enderecoRepository.findById(boletimCadastroDATA.enderecoImovel().getId())
-                .orElseThrow(() -> new RuntimeException("Endereço do imóvel não encontrado"));
+                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(boletimCadastroDATA.enderecoImovel().getId()));
 
 
         if (boletim.getCodigo() == null) {
@@ -56,7 +59,7 @@ public class BoletimCadastroService {
 
     public BoletimCadastro getById(UUID id) {
         return boletimCadastroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Boletim não encontrado"));
+                .orElseThrow(() -> BoletimException.boletimNaoEncontrado(id));
     }
 
     public BoletimCadastro update(BoletimCadastroDTO boletimCadastroDATA, UUID id) {
@@ -70,7 +73,7 @@ public class BoletimCadastroService {
 
     public void delete(UUID id) {
         BoletimCadastro boletim = getById(id);
-        boletim.setAtivo(false); // se usar soft delete
+        boletim.setAtivo(false);
         boletimCadastroRepository.save(boletim);
     }
 

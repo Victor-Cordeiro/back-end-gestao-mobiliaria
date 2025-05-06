@@ -1,6 +1,8 @@
 package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.dto.BairroDTO;
+import com.siad.gestao_imobiliaria.exceptions.BairroException;
+import com.siad.gestao_imobiliaria.exceptions.CidadeException;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.repository.BairroRepository;
@@ -21,7 +23,12 @@ public class BairroService {
     public Bairro createBairro(BairroDTO bairroDTO) {
         Bairro bairro = new Bairro();
         Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
-                .orElseThrow(() -> new RuntimeException("Cidade não encontrada com ID: " + bairroDTO.codigoCidade()));
+                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.codigoCidade()));
+
+        bairroRepository.findFirstByNomeAndCidade(bairroDTO.nome(), cidade)
+                .ifPresent(b -> {
+                    throw BairroException.bairroJaExiste(bairroDTO.nome(), cidade.getNome());
+                });
 
 
         if (bairro.getCodigo() == null) {
@@ -41,7 +48,8 @@ public class BairroService {
     }
 
     public Bairro buscarBairroById(UUID id) {
-        return bairroRepository.findById(id).orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+        return bairroRepository.findById(id).orElseThrow(() -> BairroException.bairroNaoEncontrado(id));
+
     }
 
 
@@ -56,7 +64,7 @@ public class BairroService {
 
     public Bairro buscarOuCriar(BairroDTO bairroDTO) {
         Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
-                .orElseThrow(() -> new RuntimeException("Cidade não encontrada com código: " + bairroDTO.codigoCidade()));
+                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.codigoCidade()));
 
         return bairroRepository.findByNomeAndCidade(bairroDTO.nome(), cidade)
                 .orElseGet(() -> {

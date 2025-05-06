@@ -17,8 +17,6 @@ public interface TipoLogradouroRepository extends JpaRepository<TipoLogradouro, 
 
     Optional<TipoLogradouro> findByCodigo(Long codigo);
 
-    // Custom query methods can be defined here if needed
-
     List<TipoLogradouro> findByAtivoTrue();
 
 

@@ -1,12 +1,9 @@
 package com.siad.gestao_imobiliaria.controller;
 
 import com.siad.gestao_imobiliaria.dto.BoletimCadastroDTO;
-import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.BoletimCadastro;
-import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.service.BoletimCadastroService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +34,8 @@ public class BoletimCadastroController {
         boletimCadastroService.delete(id);
     }
 
-    @PostMapping
-    public ResponseEntity<BoletimCadastro> adicionar(@RequestBody BoletimCadastroDTO boletimDTO) {
+    @PostMapping("/create")
+    public ResponseEntity<BoletimCadastro> createBoletim(@RequestBody BoletimCadastroDTO boletimDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(boletimCadastroService.createBoletimCadastro(boletimDTO));
     }
 

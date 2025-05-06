@@ -5,7 +5,6 @@ import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.service.BairroService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,27 +18,21 @@ public class BairroController {
 
     private final BairroService bairroService;
 
-    //Criar um novo bairro
-    @PostMapping("/adicionar")
-    public ResponseEntity<Bairro> adicionarBairro(@RequestBody BairroDTO bairroDATA) {
+    @PostMapping("/create")
+    public ResponseEntity<Bairro> createBairro(@RequestBody BairroDTO bairroDATA) {
         return ResponseEntity.ok(bairroService.createBairro(bairroDATA));
     }
 
-
-    //Listar todos os bairros
     @GetMapping
     public ResponseEntity<List<Bairro>> listarTodas() {
         return ResponseEntity.ok(bairroService.getAllBairros());
     }
 
-    //Listar por id
     @GetMapping("/{id}")
     public ResponseEntity<Bairro> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(bairroService.buscarBairroById(id));
     }
 
-
-    //deleta um bairro
     @PutMapping("delete/{id}")
     public void deletarBairro(@PathVariable UUID id) {
         bairroService.deleteBairro(id);

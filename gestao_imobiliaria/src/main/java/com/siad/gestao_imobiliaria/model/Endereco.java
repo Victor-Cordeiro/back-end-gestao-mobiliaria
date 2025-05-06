@@ -18,11 +18,11 @@ public class Endereco {
     private Long codigo;
 
     @ManyToOne
-    @JoinColumn(name = "logradouro_id") // Essa é a FK para a tabela Logradouro
+    @JoinColumn(name = "logradouro_id")
     private Logradouro logradouro;
 
     @ManyToOne
-    @JoinColumn(name = "bairro_id") // Essa é a FK para a tabela Logradouro
+    @JoinColumn(name = "bairro_id")
     private Bairro bairro;
     private String numero;
     private String complemento;

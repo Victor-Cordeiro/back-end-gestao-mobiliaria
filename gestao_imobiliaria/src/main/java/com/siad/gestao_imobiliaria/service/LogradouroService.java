@@ -2,6 +2,8 @@ package com.siad.gestao_imobiliaria.service;
 
 
 import com.siad.gestao_imobiliaria.dto.LogradouroDTO;
+import com.siad.gestao_imobiliaria.exceptions.LogradouroException;
+import com.siad.gestao_imobiliaria.exceptions.TipoLogradouroException;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.TipoLogradouro;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @AllArgsConstructor
 public class LogradouroService {
@@ -21,14 +25,14 @@ public class LogradouroService {
 
     public Logradouro buscarPorId(UUID id) {
         return logradouroRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+                .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(id));
     }
 
     public Logradouro createLogradouro(LogradouroDTO logradouroDATA) {
         Logradouro logradouro = new Logradouro();
 
         TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDATA.tipoLogradouroCodigo())
-                .orElseThrow(() -> new RuntimeException("TipoLogradouro não encontrado com código: " + logradouroDATA.tipoLogradouroCodigo()));
+                .orElseThrow(() -> TipoLogradouroException.tipoLogradouroNaoEncontrado(logradouroDATA.tipoLogradouroCodigo()));
 
         if (logradouroDATA.codigo() == null) {
             Long codigo = gerarProximoCodigo();
@@ -40,7 +44,6 @@ public class LogradouroService {
         logradouro.setNome(logradouroDATA.nome());
         logradouro.setNome_anterior(logradouroDATA.nome());
         logradouro.setTipo(tipoLogradouro);
-        logradouro.setAtivo(logradouroDATA.ativo());
 
         return logradouroRepository.save(logradouro);
     }

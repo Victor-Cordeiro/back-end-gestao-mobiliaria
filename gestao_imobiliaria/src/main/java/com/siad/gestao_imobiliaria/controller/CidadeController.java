@@ -33,8 +33,8 @@ public class CidadeController {
         cidadeService.deleteCidade(id);
     }
 
-    @PostMapping
-    public ResponseEntity<Cidade> adicionar(@RequestBody CidadeDTO cidade) {
+    @PostMapping("/create")
+    public ResponseEntity<Cidade> createCidade(@RequestBody CidadeDTO cidade) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cidadeService.createCidade(cidade));
     }
 

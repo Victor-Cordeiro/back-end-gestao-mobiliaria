@@ -13,8 +13,6 @@ public interface ResponsavelLegalRepository extends JpaRepository<ResponsavelLeg
     @Query("SELECT MAX(r.codigo) FROM ResponsavelLegal r")
     Long findMaxCodigo();
 
-
-
     List<ResponsavelLegal> findByAtivoTrue();
 
 

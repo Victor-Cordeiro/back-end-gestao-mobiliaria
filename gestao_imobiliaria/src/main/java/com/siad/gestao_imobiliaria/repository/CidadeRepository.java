@@ -11,23 +11,14 @@ import java.util.UUID;
 
 public interface CidadeRepository extends JpaRepository<Cidade, UUID> {
 
-
-
-
     @Query("SELECT MAX(c.codigo) FROM Cidade c")
     Long findMaxCodigo();
 
-
-
-
     Optional<Cidade> findByCodigo(Long codigo);
-
 
     List<Cidade> findByAtivoTrue();
 
-
-
     Optional<Cidade> findFirstByNomeIgnoreCase(String nome);
 
-    // Custom query methods can be defined here if needed{
+
 }

@@ -10,16 +10,10 @@ import java.util.UUID;
 
 public interface LogradouroRepository extends JpaRepository<Logradouro, UUID> {
 
-
     Optional<Object> findByNomeAndTipo(String nome, TipoLogradouro tipo);
-
-
-
 
     @Query("SELECT MAX(l.codigo) FROM Logradouro l")
     Long findMaxCodigo();
-
-
 
     Optional<Logradouro> findByCodigo(Long codigo);
 

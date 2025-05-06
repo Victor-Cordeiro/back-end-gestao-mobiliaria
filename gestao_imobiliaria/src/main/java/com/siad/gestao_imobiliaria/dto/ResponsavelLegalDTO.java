@@ -10,7 +10,6 @@ public record ResponsavelLegalDTO(
         String email,
         String numeroDocumento,
         String tipoResponsavel,
-        Endereco enderecoResponsavel,
-        Boolean ativo
+        Endereco enderecoResponsavel
 ) {
 }

@@ -19,8 +19,8 @@ public class EnderecoController {
 
     private final EnderecoService enderecoService;
 
-    @PostMapping
-    public ResponseEntity<Endereco> criar(@RequestBody EnderecoDTO enderecoDTO) {
+    @PostMapping("/create")
+    public ResponseEntity<Endereco> createEndereco(@RequestBody EnderecoDTO enderecoDTO) {
         Endereco novo = enderecoService.createEndereco(enderecoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }

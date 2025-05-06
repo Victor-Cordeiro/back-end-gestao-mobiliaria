@@ -18,7 +18,7 @@ public class ResponsavelLegalController {
     private final ResponsavelLegalService responsavelLegalService;
 
     @PostMapping
-    public ResponseEntity<ResponsavelLegal> criar(@RequestBody ResponsavelLegalDTO dto) {
+    public ResponseEntity<ResponsavelLegal> createResponsavel(@RequestBody ResponsavelLegalDTO dto) {
         ResponsavelLegal responsavel = responsavelLegalService.createResponsavelLegal(dto);
         return ResponseEntity.ok(responsavel);
     }

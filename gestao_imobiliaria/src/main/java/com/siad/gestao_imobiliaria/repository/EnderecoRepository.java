@@ -12,11 +12,8 @@ import java.util.UUID;
 public interface EnderecoRepository extends JpaRepository<Endereco, UUID> {
     Optional<Endereco> findByCep(String cep);
 
-
-
     @Query("SELECT MAX(e.codigo) FROM Endereco e")
     Long findMaxCodigo();
-
 
     List<Endereco> findByAtivoTrue();
 

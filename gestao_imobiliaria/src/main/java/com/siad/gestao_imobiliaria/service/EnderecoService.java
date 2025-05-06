@@ -1,6 +1,9 @@
 package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.dto.EnderecoDTO;
+import com.siad.gestao_imobiliaria.exceptions.BairroException;
+import com.siad.gestao_imobiliaria.exceptions.EnderecoException;
+import com.siad.gestao_imobiliaria.exceptions.LogradouroException;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.model.Logradouro;
@@ -37,9 +40,10 @@ public class EnderecoService {
         endereco.setCep(dto.cep());
 
         Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
-                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+                .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(dto.logradouro().getId()));
         Bairro bairro = bairroRepository.findById(dto.bairro().getId())
-                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+                .orElseThrow(() -> BairroException.bairroNaoEncontrado(dto.bairro().getId()));
+
 
         endereco.setLogradouro(logradouro);
         endereco.setBairro(bairro);
@@ -51,16 +55,16 @@ public class EnderecoService {
 
     public Endereco atualizar(UUID id, EnderecoDTO dto) {
         Endereco atual = enderecoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(id));
 
         atual.setNumero(dto.numero());
         atual.setComplemento(dto.complemento());
         atual.setCep(dto.cep());
 
         Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
-                .orElseThrow(() -> new RuntimeException("Logradouro não encontrado"));
+                .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(dto.logradouro().getId()));
         Bairro bairro = bairroRepository.findById(dto.bairro().getId())
-                .orElseThrow(() -> new RuntimeException("Bairro não encontrado"));
+                .orElseThrow(() -> BairroException.bairroNaoEncontrado(dto.bairro().getId()));
 
         atual.setLogradouro(logradouro);
         atual.setBairro(bairro);
@@ -71,7 +75,8 @@ public class EnderecoService {
 
     public Endereco buscarPorId(UUID id) {
         return enderecoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(id));
+
     }
     public Endereco buscarPorCep(String cep) {
         return enderecoRepository.findByCep(cep)
@@ -85,12 +90,12 @@ public class EnderecoService {
     }
 
     private Endereco getEnderecoById(UUID id) {
-        return enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException("Endereço não encontrado"));
+        return enderecoRepository.findById(id).orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(id));
     }
 
 
     public List<Endereco> listarTodos() {
-        return enderecoRepository.findAll();
+        return enderecoRepository.findByAtivoTrue();
     }
 
     public Long gerarProximoCodigo() {

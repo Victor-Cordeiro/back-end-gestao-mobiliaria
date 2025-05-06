@@ -11,12 +11,13 @@ import java.util.UUID;
 
 public interface BairroRepository extends JpaRepository<Bairro, UUID> {
     Optional<Bairro> findByNomeAndCidade(String nome, Cidade cidade);
+
+
+
+    Optional<Bairro> findFirstByNomeAndCidade(String nome, Cidade cidade);
+
     @Query("SELECT MAX(b.codigo) FROM Bairro b")
     Long findMaxCodigo();
-
-
-    List<Bairro> findByAtivoTrue();
-
     List<Bairro> findByCidadeIsNotNullAndCidadeAtivoTrue();
 
 
