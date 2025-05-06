@@ -34,6 +34,8 @@ public class LogradouroService {
         TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDATA.tipoLogradouroCodigo())
                 .orElseThrow(() -> TipoLogradouroException.tipoLogradouroNaoEncontrado(logradouroDATA.tipoLogradouroCodigo()));
 
+
+
         if (logradouroDATA.codigo() == null) {
             Long codigo = gerarProximoCodigo();
             logradouro.setCodigo(codigo);

@@ -21,6 +21,6 @@ public class BairroException extends RuntimeException {
     }
 
     public static BairroException bairroJaExiste(String nome, String cidade) {
-        return new BairroException("Bairro \"" + nome + "\" já existe na cidade \"" + cidade + "\".");
+        return new BairroException("Bairro " + nome +  " já existe na cidade " + cidade + ".");
     }
 }

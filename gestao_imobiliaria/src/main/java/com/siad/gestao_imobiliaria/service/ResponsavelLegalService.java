@@ -3,6 +3,7 @@ package com.siad.gestao_imobiliaria.service;
 
 import com.siad.gestao_imobiliaria.dto.ResponsavelLegalDTO;
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
+import com.siad.gestao_imobiliaria.exceptions.EnderecoException;
 import com.siad.gestao_imobiliaria.model.Endereco;
 import com.siad.gestao_imobiliaria.model.ResponsavelLegal;
 import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
@@ -27,7 +28,7 @@ public class ResponsavelLegalService {
         ResponsavelLegal responsavelLegal = new ResponsavelLegal();
 
         Endereco endereco = enderecoRepository.findById(dto.enderecoResponsavel().getId())
-                .orElseThrow(() -> new RuntimeException("ewndereco não encontrado"));
+                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(dto.enderecoResponsavel().getId()));
 
 
         if (responsavelLegal.getCodigo() == null) {

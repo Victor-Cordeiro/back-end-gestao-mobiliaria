@@ -82,5 +82,4 @@ public class BoletimCadastroService {
         return (maior == null) ? 1L : maior + 1;
     }
 
-
 }

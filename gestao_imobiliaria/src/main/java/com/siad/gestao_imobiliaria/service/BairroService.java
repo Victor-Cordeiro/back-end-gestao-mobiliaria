@@ -52,7 +52,6 @@ public class BairroService {
 
     }
 
-
     public void deleteBairro(UUID id) {
         Bairro bairro = buscarBairroById(id);
         bairro.setAtivo(false);
