@@ -46,28 +46,28 @@ public class ResponsavelLegalService {
 
 
 
-    private Endereco verificarOuCriarEndereco(EnderecoDTO enderecoDTO) {
-        Logradouro logradouro = logradouroRepository.findByNome(enderecoDTO.logradouro().getNome());
+    private Endereco verificarOuCriarEndereco(Endereco enderecoDTO) {
+        Logradouro logradouro = logradouroRepository.findByNome(enderecoDTO.getLogradouro().getNome());
 
         if (logradouro == null) {
-            logradouro = logradouroRepository.save(enderecoDTO.logradouro());
+            logradouro = logradouroRepository.save(enderecoDTO.getLogradouro());
         }
         Logradouro fLogradouro = logradouro;
 
         Optional<Endereco> existente = enderecoRepository.findByLogradouroAndBairroAndNumeroAndCep(
                 logradouro,
-                enderecoDTO.bairro(),
-                enderecoDTO.numero(),
-                enderecoDTO.cep()
+                enderecoDTO.getBairro(),
+                enderecoDTO.getNumero(),
+                enderecoDTO.getCep()
         );
 
         return existente.orElseGet(() -> {
             Endereco novoEndereco = new Endereco();
             novoEndereco.setLogradouro(fLogradouro);
-            novoEndereco.setBairro(enderecoDTO.bairro());
-            novoEndereco.setNumero(enderecoDTO.numero());
-            novoEndereco.setComplemento(enderecoDTO.complemento());
-            novoEndereco.setCep(enderecoDTO.cep());
+            novoEndereco.setBairro(enderecoDTO.getBairro());
+            novoEndereco.setNumero(enderecoDTO.getNumero());
+            novoEndereco.setComplemento(enderecoDTO.getComplemento());
+            novoEndereco.setCep(enderecoDTO.getCep());
             return enderecoRepository.save(novoEndereco);
         });
     }

@@ -30,8 +30,8 @@ public class LogradouroService {
         Logradouro logradouro = new Logradouro();
 
         // Buscar o TipoLogradouro pelo código dentro do objeto 'tipo'
-        TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDTO.tipo().codigo())
-                .orElseThrow(() -> new RuntimeException("Tipo de logradouro não encontrado com código: " + logradouroDTO.tipo().codigo()));
+        TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDTO.tipo().getCodigo())
+                .orElseThrow(() -> new RuntimeException("Tipo de logradouro não encontrado com código: " + logradouroDTO.tipo().getCodigo()));
 
         logradouro.setCodigo(logradouroDTO.codigo() != null ? logradouroDTO.codigo() : gerarProximoCodigo());
         logradouro.setNome(logradouroDTO.nome());
