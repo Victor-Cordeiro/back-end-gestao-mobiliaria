@@ -26,27 +26,21 @@ public class LogradouroService {
                 .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(id));
     }
 
-    public Logradouro createLogradouro(LogradouroDTO logradouroDATA) {
+    public Logradouro createLogradouro(LogradouroDTO logradouroDTO) {
         Logradouro logradouro = new Logradouro();
 
-        TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDATA.tipoLogradouroCodigo())
-                .orElseThrow(() -> TipoLogradouroException.tipoLogradouroNaoEncontrado(logradouroDATA.tipoLogradouroCodigo()));
+        // Buscar o TipoLogradouro pelo código dentro do objeto 'tipo'
+        TipoLogradouro tipoLogradouro = tipoLogradouroRepository.findByCodigo(logradouroDTO.tipo().codigo())
+                .orElseThrow(() -> new RuntimeException("Tipo de logradouro não encontrado com código: " + logradouroDTO.tipo().codigo()));
 
-
-
-        if (logradouroDATA.codigo() == null) {
-            Long codigo = gerarProximoCodigo();
-            logradouro.setCodigo(codigo);
-        } else {
-            logradouro.setCodigo(logradouroDATA.codigo());
-        }
-
-        logradouro.setNome(logradouroDATA.nome());
-        logradouro.setNome_anterior(logradouroDATA.nome());
+        logradouro.setCodigo(logradouroDTO.codigo() != null ? logradouroDTO.codigo() : gerarProximoCodigo());
+        logradouro.setNome(logradouroDTO.nome());
+        logradouro.setNome_anterior(logradouroDTO.nome()); // ou deixe null se não for necessário
         logradouro.setTipo(tipoLogradouro);
 
         return logradouroRepository.save(logradouro);
     }
+
 
 
 

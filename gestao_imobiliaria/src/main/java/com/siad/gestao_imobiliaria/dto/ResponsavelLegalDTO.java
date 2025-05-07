@@ -12,6 +12,6 @@ public record ResponsavelLegalDTO(
         @NotBlank(message = "O número do documento (CPF/CNPJ) é obrigatório")
         String numeroDocumento,
         String tipoResponsavel,
-        EnderecoDTO enderecoResponsavel
+        Endereco enderecoResponsavel
 ) {
 }

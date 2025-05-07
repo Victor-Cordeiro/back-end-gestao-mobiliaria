@@ -1,17 +1,14 @@
 package com.siad.gestao_imobiliaria.service;
 
+import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.dto.EnderecoDTO;
+import com.siad.gestao_imobiliaria.dto.LogradouroDTO;
 import com.siad.gestao_imobiliaria.exceptions.BairroException;
 import com.siad.gestao_imobiliaria.exceptions.EnderecoException;
 import com.siad.gestao_imobiliaria.exceptions.LogradouroException;
-import com.siad.gestao_imobiliaria.model.Bairro;
-import com.siad.gestao_imobiliaria.model.Endereco;
-import com.siad.gestao_imobiliaria.model.Logradouro;
-import com.siad.gestao_imobiliaria.model.TipoLogradouro;
-import com.siad.gestao_imobiliaria.repository.BairroRepository;
-import com.siad.gestao_imobiliaria.repository.EnderecoRepository;
-import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
-import com.siad.gestao_imobiliaria.repository.TipoLogradouroRepository;
+import com.siad.gestao_imobiliaria.model.*;
+import com.siad.gestao_imobiliaria.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,11 +24,12 @@ public class EnderecoService {
     private final LogradouroRepository logradouroRepository;
     private final BairroRepository bairroRepository;
     private final TipoLogradouroRepository tipoLogradouroRepository;
+    private final CidadeRepository cidadeRepository;
 
 
+    @Transactional
     public Endereco createEndereco(EnderecoDTO dto) {
         Endereco endereco = new Endereco();
-
         endereco.setCodigo(dto.codigo() != null ? dto.codigo() : gerarProximoCodigo());
         endereco.setNumero(dto.numero());
         endereco.setComplemento(dto.complemento());
@@ -46,60 +44,86 @@ public class EnderecoService {
         return enderecoRepository.save(endereco);
     }
 
-    private Logradouro verificarOuCriarLogradouro(Logradouro logradouroDTO) {
-        Logradouro existente = logradouroRepository.findByNome(logradouroDTO.getNome());
+
+
+
+
+    private Logradouro verificarOuCriarLogradouro(Logradouro dto) {
+        if (dto.getNome() == null) {
+            throw new IllegalArgumentException("Nome do logradouro é obrigatório");
+        }
+
+        Logradouro existente = logradouroRepository.findByNome(dto.getNome());
         if (existente != null) {
             return existente;
         }
 
-        TipoLogradouro tipo = tipoLogradouroRepository.findByCodigo(logradouroDTO.getTipo().getCodigo())
-                .orElseThrow(() -> new RuntimeException("Tipo de logradouro não encontrado com código: " + logradouroDTO.getTipo().getCodigo()));
+        TipoLogradouro tipo = tipoLogradouroRepository.findByCodigo(dto.getTipo().getCodigo())
+                .orElseThrow(() -> new RuntimeException("Tipo de logradouro não encontrado"));
 
         Logradouro novo = new Logradouro();
-        novo.setNome(logradouroDTO.getNome());
+        novo.setNome(dto.getNome());
         novo.setTipo(tipo);
+        novo.setCodigo(gerarProximoCodigo());
 
         return logradouroRepository.save(novo);
     }
 
 
 
-    private Bairro verificarOuCriarBairro(Bairro bairroDTO) {
-        if (bairroDTO.getId() != null) {
-            return bairroRepository.findById(bairroDTO.getId())
-                    .orElseThrow(() -> BairroException.bairroNaoEncontrado(bairroDTO.getId()));
+
+
+
+
+    private Bairro verificarOuCriarBairro(Bairro dto) {
+        if (dto.getNome() == null) {
+            throw new IllegalArgumentException("Nome do bairro é obrigatório");
         }
 
-        Bairro existente = bairroRepository.findByNome(bairroDTO.getNome());
+        Cidade cidade = cidadeRepository.findByCodigo(dto.getCidade().getCodigo())
+                .orElseThrow(() -> new RuntimeException("Cidade não encontrada"));
+
+        Bairro existente = bairroRepository.findFirstByNomeAndCidade(dto.getNome(), cidade).orElse(null);
         if (existente != null) {
             return existente;
         }
 
-        return bairroRepository.save(bairroDTO);
+        Bairro novo = new Bairro();
+        novo.setNome(dto.getNome());
+        novo.setCidade(cidade);
+        novo.setCodigo(gerarProximoCodigo());
+
+        return bairroRepository.save(novo);
     }
 
 
 
 
 
-    public Endereco atualizar(UUID id, EnderecoDTO dto) {
-        Endereco atual = enderecoRepository.findById(id)
-                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(id));
 
-        atual.setNumero(dto.numero());
-        atual.setComplemento(dto.complemento());
-        atual.setCep(dto.cep());
 
-        Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
-                .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(dto.logradouro().getId()));
-        Bairro bairro = bairroRepository.findById(dto.bairro().getId())
-                .orElseThrow(() -> BairroException.bairroNaoEncontrado(dto.bairro().getId()));
 
-        atual.setLogradouro(logradouro);
-        atual.setBairro(bairro);
 
-        return enderecoRepository.save(atual);
-    }
+
+
+//    public Endereco atualizar(UUID id, EnderecoDTO dto) {
+//        Endereco atual = enderecoRepository.findById(id)
+//                .orElseThrow(() -> EnderecoException.enderecoNaoEncontrado(id));
+//
+//        atual.setNumero(dto.numero());
+//        atual.setComplemento(dto.complemento());
+//        atual.setCep(dto.cep());
+//
+//        Logradouro logradouro = logradouroRepository.findById(dto.logradouro().getId())
+//                .orElseThrow(() -> LogradouroException.logradouroNaoEncontrado(dto.logradouro().getId()));
+//        Bairro bairro = bairroRepository.findById(dto.bairro().getId())
+//                .orElseThrow(() -> BairroException.bairroNaoEncontrado(dto.bairro().getId()));
+//
+//        atual.setLogradouro(logradouro);
+//        atual.setBairro(bairro);
+//
+//        return enderecoRepository.save(atual);
+//    }
 
 
     public Endereco buscarPorId(UUID id) {

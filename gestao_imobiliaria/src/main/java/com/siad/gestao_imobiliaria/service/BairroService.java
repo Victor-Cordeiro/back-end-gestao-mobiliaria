@@ -21,8 +21,8 @@ public class BairroService {
 
     public Bairro createBairro(BairroDTO bairroDTO) {
         Bairro bairro = new Bairro();
-        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
-                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.codigoCidade()));
+        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.cidade().getCodigo())
+                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.cidade().getCodigo()));
 
         bairroRepository.findFirstByNomeAndCidade(bairroDTO.nome(), cidade)
                 .ifPresent(b -> {
@@ -61,8 +61,8 @@ public class BairroService {
 
 
     public Bairro buscarOuCriar(BairroDTO bairroDTO) {
-        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
-                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.codigoCidade()));
+        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.cidade().getCodigo())
+                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.cidade().getCodigo()));
 
         return bairroRepository.findByNomeAndCidade(bairroDTO.nome(), cidade)
                 .orElseGet(() -> {

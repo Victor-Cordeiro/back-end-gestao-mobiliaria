@@ -32,7 +32,6 @@ public class ResponsavelLegalService {
 
     public ResponsavelLegal createResponsavelLegal(ResponsavelLegalDTO dto) {
         Endereco enderecoResponsavel = verificarOuCriarEndereco(dto.enderecoResponsavel());
-
         ResponsavelLegal responsavelLegal = new ResponsavelLegal();
         responsavelLegal.setNome(dto.nome());
         responsavelLegal.setTelefoneFixo(dto.telefoneFixo());

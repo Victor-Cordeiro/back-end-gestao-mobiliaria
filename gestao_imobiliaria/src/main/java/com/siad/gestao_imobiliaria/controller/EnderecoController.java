@@ -25,11 +25,11 @@ public class EnderecoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novo);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Endereco> atualizar(@PathVariable UUID id, @RequestBody EnderecoDTO enderecoDTO) {
-        Endereco atualizado = enderecoService.atualizar(id, enderecoDTO);
-        return ResponseEntity.ok(atualizado);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Endereco> atualizar(@PathVariable UUID id, @RequestBody EnderecoDTO enderecoDTO) {
+//        Endereco atualizado = enderecoService.atualizar(id, enderecoDTO);
+//        return ResponseEntity.ok(atualizado);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Endereco> buscarPorId(@PathVariable UUID id) {
