@@ -43,6 +43,7 @@ public class BoletimCadastroService {
             boletim.setCodigo(codigo);
         }
 
+
         boletim.setMatricula(boletimCadastroDATA.matricula());
         boletim.setResponsavel(boletimCadastroDATA.responsavel());
         boletim.setEnderecoCorrespondencia(enderecoCorrespondencia);
@@ -51,14 +52,14 @@ public class BoletimCadastroService {
         return boletimRepository.save(boletim);
     }
 
-    private final BoletimCadastroRepository boletimCadastroRepository;
+
 
     public List<BoletimCadastro> getAll() {
-        return boletimCadastroRepository.findByAtivoTrue();
+        return boletimRepository.findByAtivoTrue();
     }
 
     public BoletimCadastro getById(UUID id) {
-        return boletimCadastroRepository.findById(id)
+        return boletimRepository.findById(id)
                 .orElseThrow(() -> BoletimException.boletimNaoEncontrado(id));
     }
 
@@ -74,7 +75,7 @@ public class BoletimCadastroService {
     public void delete(UUID id) {
         BoletimCadastro boletim = getById(id);
         boletim.setAtivo(false);
-        boletimCadastroRepository.save(boletim);
+        boletimRepository.save(boletim);
     }
 
     public Long gerarProximoCodigo() {

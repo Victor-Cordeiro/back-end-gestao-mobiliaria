@@ -17,9 +17,10 @@ public class Endereco {
     private UUID id;
     private Long codigo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "logradouro_id")
     private Logradouro logradouro;
+
 
     @ManyToOne
     @JoinColumn(name = "bairro_id")

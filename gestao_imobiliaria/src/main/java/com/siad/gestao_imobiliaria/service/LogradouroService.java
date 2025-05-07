@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Service
 @AllArgsConstructor
 public class LogradouroService {

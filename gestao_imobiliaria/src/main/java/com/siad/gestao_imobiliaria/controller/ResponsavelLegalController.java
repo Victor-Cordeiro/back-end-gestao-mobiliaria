@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/responsaveis-legais")
+@RequestMapping("/responsavel-legal")
 @RequiredArgsConstructor
 public class ResponsavelLegalController {
 

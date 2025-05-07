@@ -19,7 +19,6 @@ public class BairroService {
     private final BairroRepository bairroRepository;
     private final CidadeRepository cidadeRepository;
 
-
     public Bairro createBairro(BairroDTO bairroDTO) {
         Bairro bairro = new Bairro();
         Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.codigoCidade())
