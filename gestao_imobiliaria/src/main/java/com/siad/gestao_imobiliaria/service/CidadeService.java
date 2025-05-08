@@ -5,7 +5,6 @@ import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.repository.CidadeRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,18 +16,21 @@ public class CidadeService {
 
     private final CidadeRepository cidadeRepository;
 
-    public List<Cidade>getAllCidades() {
 
-        return cidadeRepository.findByAtivoTrue();
-    }
+    public Cidade createCidade(CidadeDTO cidadeDTO) {
+        String nome = cidadeDTO.nome().trim();
 
-    public Cidade createCidade(CidadeDTO cidadeDATA) {
+        boolean jaExiste = cidadeRepository.existsByNomeIgnoreCase(nome);
+        if (jaExiste) {
+            throw new IllegalArgumentException("Já existe uma cidade com esse nome: " + nome);
+        }
+
         Cidade cidade = new Cidade();
         if (cidade.getCodigo() == null) {
             Long codigo = gerarProximoCodigo();
             cidade.setCodigo(codigo);
         }
-        cidade.setNome(cidadeDATA.nome());
+        cidade.setNome(nome);
         return cidadeRepository.save(cidade);
     }
 
@@ -42,6 +44,10 @@ public class CidadeService {
         cidadeRepository.save(cidade);
     }
 
+    public List<Cidade>getAllCidades() {
+
+        return cidadeRepository.findByAtivoTrue();
+    }
 
     public Long gerarProximoCodigo() {
         Long maior = cidadeRepository.findMaxCodigo();

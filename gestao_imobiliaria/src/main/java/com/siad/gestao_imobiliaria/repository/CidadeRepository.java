@@ -15,10 +15,8 @@ public interface CidadeRepository extends JpaRepository<Cidade, UUID> {
     Long findMaxCodigo();
 
     Optional<Cidade> findByCodigo(Long codigo);
-
     List<Cidade> findByAtivoTrue();
-
     Optional<Cidade> findFirstByNomeIgnoreCase(String nome);
-
-
+    boolean existsByNomeIgnoreCase(String nome);
+    Optional<Cidade> findByCodigoAndAtivoTrue(Long codigo);
 }

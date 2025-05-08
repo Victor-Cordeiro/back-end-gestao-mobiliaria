@@ -29,60 +29,32 @@ public class BairroService {
                     throw BairroException.bairroJaExiste(bairroDTO.nome(), cidade.getNome());
                 });
 
-
         if (bairro.getCodigo() == null) {
             Long codigo = gerarProximoCodigo();
             bairro.setCodigo(codigo);
         }
-
         bairro.setNome(bairroDTO.nome());
         bairro.setCidade(cidade);
         return bairroRepository.save(bairro);
     }
 
-
-
     public List<Bairro> getAllBairros() {
-        return bairroRepository.findByCidadeIsNotNullAndCidadeAtivoTrue();
+        return bairroRepository.findByAtivoTrueAndCidadeIsNotNullAndCidadeAtivoTrue();
     }
 
     public Bairro buscarBairroById(UUID id) {
         return bairroRepository.findById(id).orElseThrow(() -> BairroException.bairroNaoEncontrado(id));
 
     }
-
     public void deleteBairro(UUID id) {
         Bairro bairro = buscarBairroById(id);
         bairro.setAtivo(false);
         bairroRepository.save(bairro);
     }
 
-
-
-
-    public Bairro buscarOuCriar(BairroDTO bairroDTO) {
-        Cidade cidade = cidadeRepository.findByCodigo(bairroDTO.cidade().getCodigo())
-                .orElseThrow(() -> CidadeException.cidadeNaoEncontrada(bairroDTO.cidade().getCodigo()));
-
-        return bairroRepository.findByNomeAndCidade(bairroDTO.nome(), cidade)
-                .orElseGet(() -> {
-                    Bairro novoBairro = new Bairro();
-                    novoBairro.setNome(bairroDTO.nome());
-                    novoBairro.setCidade(cidade);
-                    novoBairro.setAtivo(true);
-                    novoBairro.setCodigo(gerarProximoCodigo());
-                    return bairroRepository.save(novoBairro);
-                });
-    }
-
-
     public Long gerarProximoCodigo() {
         Long maior = bairroRepository.findMaxCodigo();
         return (maior == null) ? 1L : maior + 1;
     }
-
-
-
-
 
 }

@@ -15,4 +15,9 @@ public class LogradouroException extends RuntimeException {
     public static LogradouroException logradouroSemTipo(UUID id) {
         return new LogradouroException("Logradouro com o id " + id + " não possui tipo associado.");
     }
+
+    public static LogradouroException lograoduroCodigoNaoEncontrado(Long codigo) {
+        return new LogradouroException("Logradouro não encontrado com o código: " + codigo);
+    }
+
 }

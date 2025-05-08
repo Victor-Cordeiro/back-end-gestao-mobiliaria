@@ -3,10 +3,8 @@ package com.siad.gestao_imobiliaria.controller;
 import com.siad.gestao_imobiliaria.dto.LogradouroDTO;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.repository.LogradouroRepository;
-import com.siad.gestao_imobiliaria.repository.TipoLogradouroRepository;
 import com.siad.gestao_imobiliaria.service.LogradouroService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,15 +13,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/logradouro")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LogradouroController {
 
     private final LogradouroService logradouroService;
     private final LogradouroRepository logradouroRepository;
 
-
-
-    @GetMapping
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<Logradouro>> listarTodos() {
         return ResponseEntity.ok(logradouroRepository.findAll());
     }
@@ -33,8 +29,7 @@ public class LogradouroController {
         return ResponseEntity.ok(logradouroService.buscarPorId(id));
     }
 
-
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Logradouro> createLogradouro(@RequestBody LogradouroDTO logradouroDATA) {
         return ResponseEntity.ok(logradouroService.createLogradouro(logradouroDATA));
     }
@@ -43,11 +38,6 @@ public class LogradouroController {
     public void deletarLogradouro(@PathVariable UUID id) {
         logradouroService.deletar(id);
     }
-
-
-
-
-
 
 
 }

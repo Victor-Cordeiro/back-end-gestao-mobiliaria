@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.repository;
 
+import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.model.Logradouro;
 import com.siad.gestao_imobiliaria.model.TipoLogradouro;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,13 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface LogradouroRepository extends JpaRepository<Logradouro, UUID> {
-
-    Optional<Object> findByNomeAndTipo(String nome, TipoLogradouro tipo);
-
     @Query("SELECT MAX(l.codigo) FROM Logradouro l")
     Long findMaxCodigo();
-
-    Optional<Logradouro> findByCodigo(Long codigo);
-
-    Logradouro findByNome(String nome);
+    Optional<Logradouro> findFirstByNomeAndTipo(String nome, TipoLogradouro tipo);
 }

@@ -8,8 +8,9 @@ public class ResponsavelLegalException extends RuntimeException {
         super(message);
     }
 
-    public static ResponsavelLegalException responsavelNaoEncontrado(UUID id) {
-        return new ResponsavelLegalException("Responsável não encontrado com o id: " + id);
+
+    public static ResponsavelLegalException responsavelCodigoNaoEncontrado(Long codigo) {
+        return new ResponsavelLegalException("Responsável com o codigo" + codigo + " não encontrado.");
     }
 
     public static ResponsavelLegalException responsavelInativo(UUID id) {

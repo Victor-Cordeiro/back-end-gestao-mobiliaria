@@ -3,7 +3,7 @@ package com.siad.gestao_imobiliaria.controller;
 import com.siad.gestao_imobiliaria.dto.CidadeDTO;
 import com.siad.gestao_imobiliaria.model.Cidade;
 import com.siad.gestao_imobiliaria.service.CidadeService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/cidade")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CidadeController {
 
     private final CidadeService cidadeService;
 
-    @GetMapping
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<Cidade>> listarTodas() {
         return ResponseEntity.ok(cidadeService.getAllCidades());
     }

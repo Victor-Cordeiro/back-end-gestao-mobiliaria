@@ -18,8 +18,7 @@ public class BoletimCadastroController {
 
     private final BoletimCadastroService boletimCadastroService;
 
-
-    @GetMapping
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<BoletimCadastro>> listarTodas() {
         return ResponseEntity.ok(boletimCadastroService.getAll());
     }

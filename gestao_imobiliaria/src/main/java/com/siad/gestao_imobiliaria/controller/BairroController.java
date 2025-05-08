@@ -1,6 +1,5 @@
 package com.siad.gestao_imobiliaria.controller;
 
-
 import com.siad.gestao_imobiliaria.dto.BairroDTO;
 import com.siad.gestao_imobiliaria.model.Bairro;
 import com.siad.gestao_imobiliaria.service.BairroService;
@@ -23,32 +22,14 @@ public class BairroController {
         return ResponseEntity.ok(bairroService.createBairro(bairroDATA));
     }
 
-    @GetMapping
+    @GetMapping("/litar-todos")
     public ResponseEntity<List<Bairro>> listarTodas() {
         return ResponseEntity.ok(bairroService.getAllBairros());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Bairro> buscarPorId(@PathVariable UUID id) {
-        return ResponseEntity.ok(bairroService.buscarBairroById(id));
     }
 
     @PutMapping("delete/{id}")
     public void deletarBairro(@PathVariable UUID id) {
         bairroService.deleteBairro(id);
     }
-
-    @PostMapping("/buscar-ou-criar")
-    public ResponseEntity<Bairro> buscarOuCriar(@RequestBody BairroDTO bairroDTO) {
-        Bairro bairro = bairroService.buscarOuCriar(bairroDTO);
-        return ResponseEntity.ok(bairro);
-    }
-
-
-
-
-
-
-
 
 }
