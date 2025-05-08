@@ -22,7 +22,7 @@ public class BairroController {
         return ResponseEntity.ok(bairroService.createBairro(bairroDATA));
     }
 
-    @GetMapping("/litar-todos")
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<Bairro>> listarTodas() {
         return ResponseEntity.ok(bairroService.getAllBairros());
     }

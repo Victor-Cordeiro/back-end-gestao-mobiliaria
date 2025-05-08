@@ -34,7 +34,7 @@ public class ResponsavelLegalController {
         return ResponseEntity.ok(responsavelLegalService.getById(id));
     }
 
-    @PutMapping("/atulizar/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<ResponsavelLegal> atualizar(@PathVariable UUID id, @RequestBody ResponsavelLegal responsavelLegal) {
         ResponsavelLegal atualizado = responsavelLegalService.atualizar(id, responsavelLegal);
         return ResponseEntity.ok(atualizado);
