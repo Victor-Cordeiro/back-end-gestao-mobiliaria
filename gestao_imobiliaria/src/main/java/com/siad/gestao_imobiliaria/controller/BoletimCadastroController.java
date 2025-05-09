@@ -39,8 +39,8 @@ public class BoletimCadastroController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<BoletimCadastro> atualizar(@PathVariable UUID id, @RequestBody BoletimCadastroDTO boletimDTO) {
-        return ResponseEntity.ok(boletimCadastroService.update(boletimDTO, id));
+    public ResponseEntity<BoletimCadastro> atualizar(@PathVariable UUID id, @RequestBody BoletimCadastro boletim) {
+        return ResponseEntity.ok(boletimCadastroService.update(id, boletim));
     }
 
 

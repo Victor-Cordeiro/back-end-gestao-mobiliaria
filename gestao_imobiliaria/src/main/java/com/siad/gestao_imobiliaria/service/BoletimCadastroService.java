@@ -7,6 +7,7 @@ import com.siad.gestao_imobiliaria.exceptions.ResponsavelLegalException;
 import com.siad.gestao_imobiliaria.exceptions.TipoLogradouroException;
 import com.siad.gestao_imobiliaria.model.*;
 import com.siad.gestao_imobiliaria.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,28 +49,32 @@ public class BoletimCadastroService {
     }
 
 
-    private Endereco verificarOuCriarEndereco(Endereco enderecoDATA) {
-        Logradouro logradouro = verificarOuCriarLogradouro(enderecoDATA.getLogradouro());
-        Bairro bairro = verificarOuCriarBairro(enderecoDATA.getBairro());
+    private Endereco verificarOuCriarEndereco(Endereco enderecoData) {
+        Logradouro logradouro = verificarOuCriarLogradouro(enderecoData.getLogradouro());
+        Bairro bairro = verificarOuCriarBairro(enderecoData.getBairro());
 
         Optional<Endereco> existente = enderecoRepository.findByLogradouroAndBairroAndNumeroAndCep(
                 logradouro,
                 bairro,
-                enderecoDATA.getNumero(),
-                enderecoDATA.getCep()
+                enderecoData.getNumero(),
+                enderecoData.getCep()
         );
 
-        return existente.orElseGet(() -> {
-            Endereco novo = new Endereco();
-            novo.setCodigo(gerarProximoCodigo());
-            novo.setNumero(enderecoDATA.getNumero());
-            novo.setComplemento(enderecoDATA.getComplemento());
-            novo.setCep(enderecoDATA.getCep());
-            novo.setLogradouro(logradouro);
-            novo.setBairro(bairro);
-            return enderecoRepository.save(novo);
-        });
+        if (existente.isPresent()) {
+            return existente.get(); // Já está persistido
+        }
+
+        Endereco novo = new Endereco();
+        novo.setCodigo(gerarProximoCodigo());
+        novo.setNumero(enderecoData.getNumero());
+        novo.setComplemento(enderecoData.getComplemento());
+        novo.setCep(enderecoData.getCep());
+        novo.setLogradouro(logradouro);
+        novo.setBairro(bairro);
+
+        return enderecoRepository.save(novo); // GARANTIA DE PERSISTÊNCIA
     }
+
 
 
 
@@ -115,14 +120,27 @@ public class BoletimCadastroService {
                 .orElseThrow(() -> BoletimException.boletimNaoEncontrado(id));
     }
 
-    public BoletimCadastro update(BoletimCadastroDTO boletimCadastroDATA, UUID id) {
-        BoletimCadastro boletim = getById(id);
-        boletim.setMatricula(boletimCadastroDATA.matricula());
-        boletim.setResponsavel(boletimCadastroDATA.responsavel());
-        boletim.setEnderecoCorrespondencia(boletimCadastroDATA.enderecoCorrespondencia());
-        boletim.setEnderecoImovel(boletimCadastroDATA.enderecoImovel());
+    @Transactional
+    public BoletimCadastro update(UUID id, BoletimCadastro boletimCadastroDATA) {
+        BoletimCadastro boletim = boletimRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Boletim não encontrado com ID: " + id));
+
+        boletim.setMatricula(boletimCadastroDATA.getMatricula());
+
+        ResponsavelLegal responsavelLegal = reposponsavelLegalRepository
+                .findByCodigo(boletimCadastroDATA.getResponsavel().getCodigo())
+                .orElseThrow(() -> ResponsavelLegalException.responsavelCodigoNaoEncontrado(boletimCadastroDATA.getResponsavel().getCodigo()));
+
+        Endereco enderecoCorrespondencia = verificarOuCriarEndereco(boletimCadastroDATA.getEnderecoCorrespondencia());
+        Endereco enderecoImovel = verificarOuCriarEndereco(boletimCadastroDATA.getEnderecoImovel());
+
+        boletim.setResponsavel(responsavelLegal);
+        boletim.setEnderecoCorrespondencia(enderecoCorrespondencia);
+        boletim.setEnderecoImovel(enderecoImovel);
+
         return boletimRepository.save(boletim);
     }
+
 
     public void delete(UUID id) {
         BoletimCadastro boletim = getById(id);

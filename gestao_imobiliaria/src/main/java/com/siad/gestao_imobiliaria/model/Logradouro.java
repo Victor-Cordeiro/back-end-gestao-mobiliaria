@@ -11,7 +11,6 @@ import java.util.UUID;
 @Entity
 public class Logradouro {
 
-
     @Id
     @GeneratedValue
     private UUID id;
@@ -25,11 +24,6 @@ public class Logradouro {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
-
-
-
-
-
     @PrePersist
     public void prePersist() {
         this.createAt = LocalDateTime.now();
@@ -41,7 +35,5 @@ public class Logradouro {
     public void preUpdate() {
         this.updateAt = LocalDateTime.now();
     }
-
-
 
 }

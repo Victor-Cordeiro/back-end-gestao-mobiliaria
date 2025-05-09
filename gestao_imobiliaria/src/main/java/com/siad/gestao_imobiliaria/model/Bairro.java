@@ -13,7 +13,6 @@ public class Bairro {
     @GeneratedValue
     private UUID id;
 
-
     private Long codigo;
     private String nome;
     @ManyToOne
@@ -36,7 +35,5 @@ public class Bairro {
 
         this.updateAt = LocalDateTime.now();
     }
-
-
 
 }
