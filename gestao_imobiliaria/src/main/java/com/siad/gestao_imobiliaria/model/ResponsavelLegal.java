@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.model;
 
+import com.siad.gestao_imobiliaria.enums.Role;
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,6 +22,10 @@ public class ResponsavelLegal {
     private String telefoneCelular;
     private String email;
     private String numeroDocumento;
+
+    @Enumerated(EnumType.STRING)
+    private Role tipoUsuario;
+
 
     @Enumerated(EnumType.STRING)
     private TipoResponsavel tipoResponsavel;
