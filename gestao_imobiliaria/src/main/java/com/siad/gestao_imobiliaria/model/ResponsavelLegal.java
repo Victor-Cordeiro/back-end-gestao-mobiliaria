@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.model;
 
+import com.siad.gestao_imobiliaria.auditoria.Auditable;
 import com.siad.gestao_imobiliaria.enums.Role;
 import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-public class ResponsavelLegal {
+public class ResponsavelLegal extends Auditable {
 
     @Id
     @GeneratedValue

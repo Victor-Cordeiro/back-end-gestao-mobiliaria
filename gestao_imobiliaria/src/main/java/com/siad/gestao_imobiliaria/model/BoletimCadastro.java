@@ -1,5 +1,6 @@
 package com.siad.gestao_imobiliaria.model;
 
+import com.siad.gestao_imobiliaria.auditoria.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import java.util.UUID;
 //@Getter @Setter
 @Data
 @Entity
-public class BoletimCadastro {
+public class BoletimCadastro extends Auditable {
 
 
     @Id
