@@ -6,6 +6,7 @@ import com.siad.gestao_imobiliaria.enums.TipoResponsavel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -23,6 +24,9 @@ public class ResponsavelLegal extends Auditable {
     private String telefoneCelular;
     private String email;
     private String numeroDocumento;
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
+
 
     @Enumerated(EnumType.STRING)
     private Role tipoUsuario;

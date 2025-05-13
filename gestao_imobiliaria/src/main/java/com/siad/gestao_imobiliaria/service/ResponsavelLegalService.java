@@ -37,6 +37,7 @@ public class ResponsavelLegalService {
         responsavelLegal.setTelefoneCelular(responsavelLegalDTO.telefoneCelular());
         responsavelLegal.setEmail(responsavelLegalDTO.email());
         responsavelLegal.setNumeroDocumento(responsavelLegalDTO.numeroDocumento());
+        responsavelLegal.setDataNascimento(responsavelLegalDTO.dataNascimento());
         responsavelLegal.setTipoResponsavel(TipoResponsavel.valueOf(responsavelLegalDTO.tipoResponsavel()));
         responsavelLegal.setEnderecoResponsavel(enderecoResponsavel);
 
